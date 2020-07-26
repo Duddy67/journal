@@ -1,0 +1,95 @@
+<div data-control="toolbar">
+    <a
+        href="<?= Backend::url('codalia/journal/articles/create') ?>"
+        class="btn btn-primary oc-icon-plus">
+	<?= e(trans('codalia.journal::lang.action.new')) ?>
+    </a>
+
+    <?php if ($this->user->hasAccess('codalia.journal.access_publish')): ?>
+      <button
+	  class="btn btn-success oc-icon-check-square-o deactivable"
+	  disabled="disabled"
+	  onclick="$(this).data('request-data', { checked: $('.control-list').listWidget('getChecked'), status: 'published' })"
+	  data-request="onSetStatus"
+	  data-trigger-action="enable"
+	  data-trigger=".control-list input[type=checkbox]"
+	  data-trigger-condition="checked"
+	  data-request-success="$.fn.disableButtons();"
+	  data-stripe-load-indicator>
+	  <?= e(trans('codalia.journal::lang.action.publish')) ?>
+      </button>
+
+      <button
+	  class="btn btn-warning oc-icon-square-o deactivable"
+	  disabled="disabled"
+	  onclick="$(this).data('request-data', { checked: $('.control-list').listWidget('getChecked'), status: 'unpublished' })"
+	  data-request="onSetStatus"
+	  data-trigger-action="enable"
+	  data-trigger=".control-list input[type=checkbox]"
+	  data-trigger-condition="checked"
+	  data-request-success="$.fn.disableButtons();"
+	  data-stripe-load-indicator>
+	  <?= e(trans('codalia.journal::lang.action.unpublish')) ?>
+      </button>
+
+      <button
+	  class="btn btn-info oc-icon-archive deactivable"
+	  disabled="disabled"
+	  onclick="$(this).data('request-data', { checked: $('.control-list').listWidget('getChecked'), status: 'archived' })"
+	  data-request="onSetStatus"
+	  data-trigger-action="enable"
+	  data-trigger=".control-list input[type=checkbox]"
+	  data-trigger-condition="checked"
+	  data-request-success="$.fn.disableButtons();"
+	  data-stripe-load-indicator>
+	  <?= e(trans('codalia.journal::lang.action.archive')) ?>
+      </button>
+    <?php endif ?>
+
+    <?php if ($this->user->hasAccess('codalia.journal.access_check_in')): ?>
+      <button
+	  class="btn btn-info oc-icon-unlock-alt deactivable"
+	  disabled="disabled"
+	  onclick="$(this).data('request-data', { checked: $('.control-list').listWidget('getChecked'), status: 'archived' })"
+	  data-request="onCheckIn"
+	  data-trigger-action="enable"
+	  data-trigger=".control-list input[type=checkbox]"
+	  data-trigger-condition="checked"
+	  data-request-success="$.fn.disableButtons();"
+	  data-stripe-load-indicator>
+	  <?= e(trans('codalia.journal::lang.action.check_in')) ?>
+      </button>
+    <?php endif ?>
+
+    <?php if ($this->user->hasAccess('codalia.journal.access_delete')): ?>
+      <button
+	  class="btn btn-danger oc-icon-trash-o deactivable"
+	  disabled="disabled"
+	  onclick="$(this).data('request-data', { checked: $('.control-list').listWidget('getChecked') })"
+	  data-request="onDelete"
+	  data-request-confirm="<?= e(trans('codalia.journal::lang.action.deletion_confirmation')) ?>"
+	  data-trigger-action="enable"
+	  data-trigger=".control-list input[type=checkbox]"
+	  data-trigger-condition="checked"
+	  data-request-success="$.fn.disableButtons();"
+	  data-stripe-load-indicator>
+	  <?= e(trans('codalia.journal::lang.action.delete')) ?>
+      </button>
+    <?php endif ?>
+
+    <?php if ($this->user->hasAccess('codalia.journal.access_publish')): ?>
+      <a href="<?= Backend::url('codalia/journal/orderings/reorder') ?>" class="btn btn-default oc-icon-sitemap">
+	  <?= e(trans('codalia.journal::lang.articles.reorder')) ?>
+      </a>
+    <?php endif ?>
+</div>
+
+<script>
+$.fn.disableButtons = function() {
+    $(':button.deactivable').each(function() {
+	$(this).prop('disabled', 'disabled');
+    });
+}
+</script>
+
+

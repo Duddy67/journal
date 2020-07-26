@@ -1,0 +1,10 @@
+<div class="relation-widget" id="<?= $this->getId() ?>">
+  <?php $path = '~/modules/backend/widgets/form/partials/';
+	if ($field->fieldName == 'categories') {
+	    // Uses the journal partials.
+	    $path = '~/plugins/codalia/journal/models/article/';
+	}
+  ?>
+
+  <?= $this->makePartial($path.'_field_'.$field->type.'.htm', ['field' => $field]) ?>
+</div>

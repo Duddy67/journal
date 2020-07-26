@@ -1,0 +1,19 @@
+<?php Block::put('breadcrumb') ?>
+    <ul>
+        <li><a href="<?= Backend::url('codalia/journal/articles') ?>"><?= e(trans('codalia.journal::lang.journal.articles')) ?></a></li>
+        <li><?= e($this->pageTitle) ?></li>
+    </ul>
+<?php Block::endPut() ?>
+
+<?php if (!$this->fatalError): ?>
+
+    <div class="form-preview">
+        <?= $this->formRenderPreview() ?>
+    </div>
+
+<?php else: ?>
+
+    <p class="flash-message static error"><?= e($this->fatalError) ?></p>
+    <p><a href="<?= Backend::url('codalia/journal/articles') ?>" class="btn btn-default"><?= e(trans('codalia.journal::lang.articles.return_to_articles')) ?></a></p>
+
+<?php endif ?>

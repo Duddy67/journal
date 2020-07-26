@@ -1,0 +1,56 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    name:
+        label: codalia.journal::lang.attribute.name
+        span: left
+        placeholder: codalia.journal::lang.attribute.name_placeholder
+        required: true
+
+    code:
+        label: codalia.journal::lang.attribute.code
+        span: right
+        placeholder: codalia.journal::lang.attribute.code_placeholder
+        required: true
+        preset:
+            field: name
+            type: slug
+    type:
+        tab: codalia.journal::lang.attribute.tab_manage
+        label: codalia.journal::lang.attribute.type
+        span: left
+        type: dropdown
+
+    status:
+        tab: codalia.journal::lang.attribute.tab_manage
+        label: codalia.journal::lang.attribute.status
+        span: right
+        type: dropdown
+        permissions: codalia.journal.access_publish
+
+    default_value:
+        tab: codalia.journal::lang.attribute.tab_manage
+        label: codalia.journal::lang.extra_field.default_value
+        span: left
+
+    id:
+        tab: codalia.journal::lang.attribute.tab_manage
+        label: ID
+        span: right
+        disabled: true
+
+    required:
+        tab: codalia.journal::lang.attribute.tab_manage
+        label: codalia.journal::lang.attribute.required
+        span: left
+        type: switch
+        on: codalia.journal::lang.attribute.yes
+        off: codalia.journal::lang.attribute.no
+
+    _multivalues:
+        label:
+        type: partial
+        path: ~/plugins/codalia/journal/models/extrafield/multi_values.htm
+

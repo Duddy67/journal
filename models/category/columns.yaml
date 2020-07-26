@@ -1,0 +1,25 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    name:
+        label: codalia.journal::lang.attribute.name
+        searchable: true
+
+    status:
+        label: codalia.journal::lang.attribute.status
+        sortable: true
+        type: partial
+        path: ~/plugins/codalia/journal/models/article/_status_column.htm
+
+    created_at:
+        label: codalia.journal::lang.attribute.created_at
+        type: datetime
+        sortable: true
+
+    id:
+        label: ID
+        searchable: true
+
+

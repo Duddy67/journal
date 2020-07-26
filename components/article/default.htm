@@ -1,0 +1,48 @@
+{% set article = __SELF__.article %}
+
+
+{% put head %}
+  <link href="{{ url('/') }}/{{ article.canonical }}" rel="canonical">
+{% endput %}
+
+{% if article.breadcrumb is not null %}
+  {% partial "@breadcrumb" path = article.breadcrumb prefix = article.prefix %}
+{% endif %}
+
+<h3>{{ article.title }}</h3>
+<div class="content">{{ article.description|raw }}</div>
+	<?= e(trans('codalia.journal::lang.action.new')) ?>
+
+{% if article.featured_images.count %}
+    <div class="featured-images text-center">
+        {% for image in article.featured_images %}
+            <p>
+                <img
+                    data-src="{{ image.filename }}"
+                    src="{{ image.path }}"
+                    alt="{{ image.description }}"
+                    style="max-width: 100%" />
+            </p>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<p class="info">
+Posted in {% if article.categories.count %},  
+        {% for category in article.categories %}
+	    <a href="{{ category.url }}">{{ category.name }}</a>{% if not loop.last %}, {% endif %}
+        {% endfor %}
+    {% endif %}
+    on {{ article.published_at|date('M d, Y') }}
+</p>
+
+{% set previous, next = __SELF__.previousArticle(), __SELF__.nextArticle() %}
+
+{% if previous %}
+  <p>&lt;&lt; <a href="{{ previous.url }}"/>{{ previous.title }}</a></p>
+{% endif %}
+
+{% if next %}
+  <p><a href="{{ next.url }}"/>{{ next.title }}</a> &gt;&gt;</p>
+{% endif %}
+

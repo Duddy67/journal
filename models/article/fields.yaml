@@ -1,0 +1,134 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    title:
+        label: codalia.journal::lang.attribute.title
+        span: left
+        placeholder: codalia.journal::lang.article.title_placeholder
+        required: true
+
+    slug:
+        label: codalia.journal::lang.attribute.slug
+        span: right
+        placeholder: codalia.journal::lang.article.slug_placeholder
+        required: true
+        preset:
+            field: title
+            type: slug
+
+secondaryTabs:
+    stretch: true
+    fields:
+        description:
+            tab: codalia.journal::lang.attribute.tab_edit
+            type: richeditor
+            stretch: true
+
+        category:
+            tab: codalia.journal::lang.article.tab_categories
+            label: codalia.journal::lang.attribute.main_category
+            span: left
+            type: relation
+            required: true
+
+        categories:
+            tab: codalia.journal::lang.article.tab_categories
+            span: left
+            type: relation
+            commentAbove: codalia.journal::lang.article.categories_comment
+            placeholder: codalia.journal::lang.article.categories_placeholder
+
+        status:
+            tab: codalia.journal::lang.attribute.tab_manage
+            label: codalia.journal::lang.attribute.status
+            span: left
+            type: dropdown
+            permissions: codalia.journal.access_publish
+
+        # Read-only information field for users without publish access.
+        _status_field:
+            tab: codalia.journal::lang.attribute.tab_manage
+            label: codalia.journal::lang.attribute.status
+            span: left
+            disabled: true
+
+        usergroup:
+            tab: codalia.journal::lang.attribute.tab_manage
+            label: codalia.journal::lang.attribute.viewing_access
+            span: right
+            type: relation
+            emptyOption: Public
+
+        published_up:
+            tab: codalia.journal::lang.attribute.tab_manage
+            label: codalia.journal::lang.attribute.published_up
+            type: datepicker
+            mode: datetime
+            span: left
+            permissions: codalia.journal.access_publish
+            trigger:
+                action: enable
+                field: status
+                condition: value[published]
+
+        published_down:
+            tab: codalia.journal::lang.attribute.tab_manage
+            label: codalia.journal::lang.attribute.published_down
+            type: datepicker
+            mode: datetime
+            span: right
+            permissions: codalia.journal.access_publish
+            trigger:
+                action: enable
+                field: status
+                condition: value[published]
+
+        created_at:
+            tab: codalia.journal::lang.attribute.tab_manage
+            label: codalia.journal::lang.attribute.created_at
+            span: left
+            type: datepicker
+            mode: datetime
+            disabled: true
+
+        updated_at:
+            tab: codalia.journal::lang.attribute.tab_manage
+            label: codalia.journal::lang.attribute.updated_at
+            span: right
+            type: datepicker
+            mode: datetime
+            disabled: true
+
+        user:
+            tab: codalia.journal::lang.attribute.tab_manage
+            label: codalia.journal::lang.attribute.created_by
+            span: left
+            type: relation
+            select: concat(first_name, ' ', last_name)
+            permissions: codalia.journal.access_other_articles
+
+        # Read-only information field for users without other_articles access.
+        _created_by_field:
+            tab: codalia.journal::lang.attribute.tab_manage
+            label: codalia.journal::lang.attribute.created_by
+            span: left
+            context: [update]
+            disabled: true
+
+        # Read-only information field.
+        _updated_by_field:
+            tab: codalia.journal::lang.attribute.tab_manage
+            label: codalia.journal::lang.attribute.updated_by
+            span: right
+            disabled: true
+
+        id:
+            tab: codalia.journal::lang.attribute.tab_manage
+            label: ID
+            span: left
+            disabled: true
+
+
+

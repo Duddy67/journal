@@ -1,0 +1,17 @@
+tabs:
+    fields:
+        max_characters:
+            span: left
+            label: codalia.journal::lang.global_settings.max_characters
+            comment: codalia.journal::lang.global_settings.max_characters_comment
+            type: text
+            default: 600
+            tab: codalia.journal::lang.global_settings.tab_general
+
+        show_breadcrumb:
+            span: left
+            label: codalia.journal::lang.global_settings.show_breadcrumb_label
+            comment: codalia.journal::lang.global_settings.show_breadcrumb_comment
+            type: switch
+            default: 1
+            tab: codalia.journal::lang.global_settings.tab_general

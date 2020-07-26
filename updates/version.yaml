@@ -1,0 +1,15 @@
+1.0.1: First version of journal
+1.0.2:
+    - 'Created table codalia_journal_articles_table'
+    - create_articles_table.php
+    - 'Created table codalia_journal_categories_table'
+    - create_categories_table.php
+    - 'Created table codalia_journal_orderings_table'
+    - create_orderings_table.php
+    - 'Created table codalia_journal_extra_fields_table'
+    - create_extra_fields_table.php
+    - 'Created table codalia_journal_multi_values_table'
+    - create_multi_values_table.php
+    - 'Seeded codalia_journal_articles table'
+    - seed_table.php
+

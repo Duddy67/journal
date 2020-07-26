@@ -1,0 +1,46 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    title:
+        label: codalia.journal::lang.attribute.title
+        searchable: true
+        sortable: true
+
+    _categories:
+        label: codalia.journal::lang.journal.categories
+        relation: categories
+        select: name
+        searchable: true
+        sortable: false
+
+    status:
+        label: codalia.journal::lang.attribute.status
+        sortable: true
+        type: partial
+        path: ~/plugins/codalia/journal/models/article/_status_column.htm
+
+    access:
+        label: codalia.journal::lang.attribute.access
+        relation: usergroup
+        select: name
+        default: 'Public'
+        select: codalia_journal_articles.access_id
+        sortable: true
+
+    created_by:
+        label: codalia.journal::lang.attribute.created_by
+        select: concat(first_name, ' ', last_name)
+        relation: user
+        sortable: true
+
+    created_at:
+        label: codalia.journal::lang.attribute.created_at
+        type: datetime
+        sortable: true
+
+    id:
+        label: ID
+        searchable: true
+

@@ -1,0 +1,65 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    name:
+        label: codalia.journal::lang.attribute.name
+        span: left
+        placeholder: codalia.journal::lang.category.name_placeholder
+        required: true
+
+    slug:
+        label: codalia.journal::lang.attribute.slug
+        span: right
+        placeholder: codalia.journal::lang.category.slug_placeholder
+        required: true
+        preset:
+            field: name
+            type: slug
+
+    status:
+        label: codalia.journal::lang.attribute.status
+        type: dropdown
+        span: left
+
+    # Read-only information field 
+    _status_field:
+        label: codalia.journal::lang.attribute.status
+        span: left
+        disabled: true
+
+    parent:
+        label: codalia.journal::lang.attribute.parent_category
+        span: left
+        type: relation
+        nameFrom: name
+        emptyOption: codalia.journal::lang.attribute.none
+
+    # Read-only information field 
+    _parent_field:
+        label: codalia.journal::lang.attribute.parent_category
+        span: left
+        disabled: true
+
+    description:
+        label: codalia.journal::lang.attribute.description
+        size: large
+        oc.commentPosition: ''
+        span: full
+        type: textarea
+
+    created_at:
+        label: codalia.journal::lang.attribute.created_at
+        type: datepicker
+        mode: datetime
+        disabled: true
+        span: left
+
+    updated_at:
+        label: codalia.journal::lang.attribute.updated_at
+        type: datepicker
+        mode: datetime
+        disabled: true
+        span: left
+

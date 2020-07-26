@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Article
+
+# Model Form Field configuration
+form: $/codalia/journal/models/article/fields.yaml
+
+# Model Class name
+modelClass: Codalia\Journal\Models\Article
+
+# Default redirect location
+defaultRedirect: codalia/journal/articles
+
+# Create page
+create:
+    title: Create Article
+    redirect: codalia/journal/articles/update/:id
+    redirectClose: codalia/journal/articles
+
+# Update page
+update:
+    title: Edit Article
+    redirect: codalia/journal/articles/update/:id
+    redirectClose: codalia/journal/articles
+
+# Preview page
+preview:
+    title: Preview Article
