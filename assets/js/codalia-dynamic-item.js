@@ -595,6 +595,14 @@ Codalia.DynamicItem = class {
 	regex = /^[0-9]+(\.[0-9]+)?$/;
 	break;
 
+      case 'snake_case':
+	regex = /^[a-z0-9\_]+$/;
+	break;
+
+      case 'slug':
+	regex = /^[a-z0-9\-]+$/;
+	break;
+
       default: // Unknown type.
 	return false;
     }

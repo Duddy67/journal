@@ -14,9 +14,7 @@ fields:
         span: right
         placeholder: codalia.journal::lang.attribute.code_placeholder
         required: true
-        preset:
-            field: name
-            type: slug
+
     type:
         tab: codalia.journal::lang.attribute.tab_manage
         label: codalia.journal::lang.attribute.type

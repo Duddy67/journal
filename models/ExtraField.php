@@ -1,6 +1,7 @@
 <?php namespace Codalia\Journal\Models;
 
 use Model;
+use October\Rain\Support\Str;
 
 /**
  * ExtraField Model
@@ -90,6 +91,12 @@ class ExtraField extends Model
 		   'datetime' => 'codalia.journal::lang.extra_field.datetime');
     }
 
+    public function beforeSave()
+    {
+        $this->code = Str::slug($this->code);
+	$this->code = preg_replace('#\-#', '_', $this->code); 
+    }
+
     public function afterSave()
     {
 	$this->setMultiValues();
@@ -150,6 +157,23 @@ class ExtraField extends Model
 
 		$multiValue->save();
 	    }
+	}
+    }
+
+    /**
+     * Switch visibility of some fields.
+     *
+     * @param       $fields
+     * @param  null $context
+     * @return void
+     */
+    public function filterFields($fields, $context = null)
+    {
+        if ($context == 'create') {
+	    // The item is about to be created. These field values are not known yet.
+	    //$fields->created_at->hidden = true;
+	    //$fields->updated_at->hidden = true;
+	    $fields->id->hidden = true;
 	}
     }
 }

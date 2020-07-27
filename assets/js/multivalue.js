@@ -33,11 +33,15 @@
       return true;
     }
 
-    let fields = {'value':'', 'text':''};
+    let count = $('#multi_value-container').find('[id^="multi_value-item-"]').length;
+    let fields = {'value':'snake_case', 'text':''};
 
-    if(!GETTER.multi_value.validateFields(fields)) {
+    if(!GETTER.multi_value.validateFields(fields) || count == 0) {
       // Shows the dynamic item tab.
-      $('.nav-tabs a[href="#secondarytab-4"]').tab('show');
+      //$('.nav-tabs a[href="#secondarytab-4"]').tab('show');
+      if(count == 0) {
+	alert(CodaliaLang.message.alert_missing_value);
+      }
 
       e.preventDefault();
       e.stopPropagation();
