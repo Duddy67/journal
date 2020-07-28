@@ -21,6 +21,17 @@ fields:
         span: left
         type: dropdown
 
+    groups:
+        label: codalia.journal::lang.extra_field.groups
+        span: left
+        type: taglist
+        useKey: true
+        options:
+          group_a: codalia.journal::lang.extra_field.group_a
+          group_b: codalia.journal::lang.extra_field.group_b
+          group_c: codalia.journal::lang.extra_field.group_c
+          group_d: codalia.journal::lang.extra_field.group_d
+
     status:
         tab: codalia.journal::lang.attribute.tab_manage
         label: codalia.journal::lang.attribute.status

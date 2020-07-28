@@ -2,6 +2,7 @@
 
 use Model;
 use October\Rain\Support\Str;
+use Lang;
 
 /**
  * ExtraField Model
@@ -100,6 +101,7 @@ class ExtraField extends Model
     public function afterSave()
     {
 	$this->setMultiValues();
+	file_put_contents('debog_file.txt', print_r($this->groups, true)); 
     }
 
     public function afterDelete()

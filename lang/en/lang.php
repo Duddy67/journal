@@ -50,6 +50,11 @@ return [
       'date' => 'Date',
       'datetime' => 'Datetime',
       'default_value' => 'Default value',
+      'groups' => 'Groups',
+      'group_a' => 'Group A',
+      'group_b' => 'Group B',
+      'group_c' => 'Group C',
+      'group_d' => 'Group D',
     ],
     // Boilerplate attributes.
     'attribute' => [
