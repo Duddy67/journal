@@ -15,19 +15,19 @@
     // Sets the validating function.
     $('[id^="on-save"]').click( function(e) { validateFields(e); });
 
-    let extraFieldId = $('#Form-field-ExtraField-id').val();
+    let fieldId = $('#Form-field-Field-id').val();
     let token = $('input[name="_token"]').val();
 
     // Prepares then run the Ajax query.
     const ajax = new Codalia.Ajax();
-    let url = rootLocation+'/backend/codalia/journal/extrafields/json/'+extraFieldId+'/'+token;
+    let url = rootLocation+'/backend/codalia/journal/fields/json/'+fieldId+'/'+token;
     let params = {'method':'GET', 'url':url, 'dataType':'json', 'async':true};
     ajax.prepare(params);
     ajax.process(getAjaxResult);
   });
 
   validateFields = function(e) {
-    let type = $('#Form-field-ExtraField-type').val();
+    let type = $('#Form-field-Field-type').val();
 
     if(type != 'list' && type != 'checkbox' && type != 'radio') {
       return true;

@@ -17,6 +17,7 @@ class CreateArticlesTable extends Migration
             $table->text('notes')->nullable();
             $table->char('status', 15)->default('unpublished');
 	    $table->integer('category_id')->unsigned()->nullable()->index();
+            $table->char('field_group_id', 7)->nullable();
 	    $table->integer('access_id')->unsigned()->nullable()->index();
 	    $table->integer('created_by')->unsigned()->nullable()->index();
 	    $table->integer('updated_by')->unsigned();

@@ -67,7 +67,7 @@ class MultiValue extends Model
     public $hasOne = [];
     public $hasMany = [];
     public $belongsTo = [
-        'extra_field' => ['Codalia\Journal\Models\ExtraField']
+        'field' => ['Codalia\Journal\Models\Field']
     ];
     public $belongsToMany = [];
     public $morphTo = [];

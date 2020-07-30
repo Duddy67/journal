@@ -8,7 +8,7 @@ return [
     'journal' => [
       'articles' => 'Articles',
       'categories' => 'Categories',
-      'extra_fields' => 'Extra Fields',
+      'fields' => 'Fields',
       'tab' => 'Journal',
       'access_articles' => 'Manage the articles',
       'access_categories' => 'Manage the article categories',
@@ -41,7 +41,7 @@ return [
       'name_placeholder' => 'New category name',
       'slug_placeholder' => 'new-category-slug'
     ],
-    'extra_field' => [
+    'field' => [
       'text' => 'Text',
       'textarea' => 'Text area',
       'list' => 'List',

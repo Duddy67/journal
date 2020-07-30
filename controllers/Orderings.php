@@ -6,6 +6,7 @@ use Lang;
 use Backend\Classes\Controller;
 use Backend\Behaviors\ReorderController;
 use Codalia\Journal\Controllers\Articles;
+use Codalia\Journal\Helpers\JournalHelper;
 
 /**
  * Orderings Back-end Controller
@@ -27,7 +28,7 @@ class Orderings extends Controller
 
     public function reorder()
     {
-	$this->vars['statusIcons'] = Articles::getStatusIcons();
+	$this->vars['statusIcons'] = JournalHelper::instance()->getStatusIcons();
 	$this->addCss(url('plugins/codalia/journal/assets/css/extra.css'));
 
         $this->asExtension('ReorderController')->reorder();

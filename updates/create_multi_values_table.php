@@ -11,7 +11,7 @@ class CreateMultiValuesTable extends Migration
         Schema::create('codalia_journal_multi_values', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->integer('id');
-	    $table->integer('extra_field_id')->unsigned()->nullable()->index();
+	    $table->integer('field_id')->unsigned()->nullable()->index();
 	    $table->string('value')->nullable();
 	    $table->string('text')->nullable();
 	    $table->integer('ordering')->unsigned();

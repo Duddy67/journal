@@ -4,11 +4,11 @@ use Schema;
 use October\Rain\Database\Schema\Blueprint;
 use October\Rain\Database\Updates\Migration;
 
-class CreateExtraFieldsTable extends Migration
+class CreateFieldsTable extends Migration
 {
     public function up()
     {
-        Schema::create('codalia_journal_extra_fields', function (Blueprint $table) {
+        Schema::create('codalia_journal_fields', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
 	    $table->string('name')->nullable();
@@ -26,6 +26,6 @@ class CreateExtraFieldsTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('codalia_journal_extra_fields');
+        Schema::dropIfExists('codalia_journal_fields');
     }
 }

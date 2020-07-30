@@ -167,10 +167,10 @@ class Plugin extends PluginBase
 		    'url'         => Backend::url('codalia/journal/categories'),
 		    'permissions' => ['codalia.journal.access_categories']
 		],
-		'extra_fields' => [
-		    'label'       => 'codalia.journal::lang.journal.extra_fields',
+		'fields' => [
+		    'label'       => 'codalia.journal::lang.journal.fields',
 		    'icon'        => 'icon-plus-square',
-		    'url'         => Backend::url('codalia/journal/extrafields'),
+		    'url'         => Backend::url('codalia/journal/fields'),
 		    'permissions' => ['codalia.journal.access_categories']
 		]
 	      ]

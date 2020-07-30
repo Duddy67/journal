@@ -4,14 +4,14 @@ use Flash;
 use Lang;
 use BackendMenu;
 use Backend\Classes\Controller;
-use Codalia\Journal\Models\ExtraField;
+use Codalia\Journal\Models\Field;
 use BackendAuth;
 use Codalia\Journal\Helpers\JournalHelper;
 
 /**
  * Extra Fields Back-end Controller
  */
-class ExtraFields extends Controller
+class Fields extends Controller
 {
     public $implement = [
         'Backend.Behaviors.FormController',
@@ -25,7 +25,7 @@ class ExtraFields extends Controller
     {
         parent::__construct();
 
-        BackendMenu::setContext('Codalia.Journal', 'journal', 'extrafields');
+        BackendMenu::setContext('Codalia.Journal', 'journal', 'fields');
     }
 
 
@@ -34,25 +34,25 @@ class ExtraFields extends Controller
 	$this->vars['statusIcons'] = JournalHelper::instance()->getStatusIcons();
 	$this->addCss(url('plugins/codalia/journal/assets/css/extra.css'));
 	// Unlocks the checked out items of this user (if any).  
-	JournalHelper::instance()->checkIn((new ExtraField)->getTable(), BackendAuth::getUser());
+	JournalHelper::instance()->checkIn((new Field)->getTable(), BackendAuth::getUser());
 	// Calls the parent method as an extension.
         $this->asExtension('ListController')->index();
     }
 
     public function update($recordId = null, $context = null)
     {
-	$extraField = ExtraField::find($recordId);
+	$field = Field::find($recordId);
 	$user = BackendAuth::getUser();
 
 	// Checks for check out matching.
-	if ($extraField->checked_out && $user->id != $extraField->checked_out) {
+	if ($field->checked_out && $user->id != $field->checked_out) {
 	    Flash::error(Lang::get('codalia.journal::lang.action.check_out_do_not_match'));
-	    return redirect('backend/codalia/journal/extrafields');
+	    return redirect('backend/codalia/journal/fields');
 	}
 
         if ($context == 'edit') {
 	    // Locks the item for this user.
-	    JournalHelper::instance()->checkOut((new ExtraField)->getTable(), $user, $recordId);
+	    JournalHelper::instance()->checkOut((new Field)->getTable(), $user, $recordId);
 	}
 
         return $this->asExtension('FormController')->update($recordId, $context);
@@ -74,16 +74,16 @@ class ExtraFields extends Controller
             $count = 0;
             foreach ($checkedIds as $recordId) {
 	        // Checks that extra field does exist.
-                if (!$extraField = ExtraField::find($recordId)) {
+                if (!$field = Field::find($recordId)) {
                     continue;
                 }
 
-		if ($extraField->checked_out) {
-		    Flash::warning(Lang::get('codalia.journal::lang.action.checked_out_item', ['name' => $extraField->name]));
+		if ($field->checked_out) {
+		    Flash::warning(Lang::get('codalia.journal::lang.action.checked_out_item', ['name' => $field->name]));
 		    return;
 		}
 
-                $extraField->delete();
+                $field->delete();
 
 		$count++;
             }
@@ -104,17 +104,17 @@ class ExtraFields extends Controller
 	  $status = post('status');
 	  $count = 0;
 	  foreach ($checkedIds as $recordId) {
-	      $extraField = ExtraField::find($recordId);
+	      $field = Field::find($recordId);
 
-	      if ($extraField->checked_out) {
-		  Flash::error(Lang::get('codalia.journal::lang.action.checked_out_item', ['name' => $extraField->name]));
+	      if ($field->checked_out) {
+		  Flash::error(Lang::get('codalia.journal::lang.action.checked_out_item', ['name' => $field->name]));
 		  return $this->listRefresh();
 	      }
 
-	      $extraField->status = $status;
+	      $field->status = $status;
 	      // Important: Do not use the save() or update() methods here as the events (afterSave etc...) will be 
 	      //            triggered as well and may have unexpected behaviors.
-	      \Db::table('codalia_journal_extra_fields')->where('id', $recordId)->update(['status' => $status]);
+	      \Db::table('codalia_journal_fields')->where('id', $recordId)->update(['status' => $status]);
 
 	      $count++;
 	  }
@@ -134,7 +134,7 @@ class ExtraFields extends Controller
 	if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
 	  $count = 0;
 	  foreach ($checkedIds as $recordId) {
-	      JournalHelper::instance()->checkIn((new ExtraField)->getTable(), null, $recordId);
+	      JournalHelper::instance()->checkIn((new Field)->getTable(), null, $recordId);
 	      $count++;
 	  }
 
@@ -159,7 +159,7 @@ class ExtraFields extends Controller
     {
 	$preferences = \Backend\Models\UserPreference::forUser()->get('backend::backend.preferences');
 	$this->addJs('/plugins/codalia/journal/assets/js/lang/'.$preferences['locale'].'.js');
-	$this->addJs('/plugins/codalia/journal/assets/js/extrafield.js');
+	$this->addJs('/plugins/codalia/journal/assets/js/field.js');
 	$this->addJs('/plugins/codalia/journal/assets/js/codalia-ajax.js');
 	$this->addJs('/plugins/codalia/journal/assets/js/codalia-dynamic-item.js');
 	$this->addJs('/plugins/codalia/journal/assets/js/multivalue.js');

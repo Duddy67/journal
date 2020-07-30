@@ -5,16 +5,16 @@ use October\Rain\Support\Str;
 use Lang;
 
 /**
- * ExtraField Model
+ * Field Model
  */
-class ExtraField extends Model
+class Field extends Model
 {
     use \October\Rain\Database\Traits\Validation;
 
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'codalia_journal_extra_fields';
+    public $table = 'codalia_journal_fields';
 
     /**
      * @var array Guarded fields
@@ -83,13 +83,13 @@ class ExtraField extends Model
 
     public function getTypeOptions()
     {
-      return array('text' => 'codalia.journal::lang.extra_field.text',
-		   'textarea' => 'codalia.journal::lang.extra_field.textarea',
-		   'list' => 'codalia.journal::lang.extra_field.list',
-		   'radio' => 'codalia.journal::lang.extra_field.radio',
-		   'checkbox' => 'codalia.journal::lang.extra_field.checkbox',
-		   'date' => 'codalia.journal::lang.extra_field.date',
-		   'datetime' => 'codalia.journal::lang.extra_field.datetime');
+      return array('text' => 'codalia.journal::lang.field.text',
+		   'textarea' => 'codalia.journal::lang.field.textarea',
+		   'list' => 'codalia.journal::lang.field.list',
+		   'radio' => 'codalia.journal::lang.field.radio',
+		   'checkbox' => 'codalia.journal::lang.field.checkbox',
+		   'date' => 'codalia.journal::lang.field.date',
+		   'datetime' => 'codalia.journal::lang.field.datetime');
     }
 
     public function beforeSave()
@@ -107,7 +107,7 @@ class ExtraField extends Model
     public function afterDelete()
     {
         // Deletes relationship rows linked to the deleted book.
-        $this->multi_values()->where('extra_field_id', $this->id)->delete();
+        $this->multi_values()->where('field_id', $this->id)->delete();
     }
 
     /**
@@ -122,13 +122,13 @@ class ExtraField extends Model
 	    return [];
 	}
 
-	$extraField = ExtraField::with(['multi_values' => function ($query){
+	$field = Field::with(['multi_values' => function ($query){
 	    $query->orderBy('ordering');
 	}])->where('id', $recordId)->first();
 
 	$multiValues = [];
 
-	foreach ($extraField->multi_values as $multiValue) {
+	foreach ($field->multi_values as $multiValue) {
 	    $multiValues[] = $multiValue->attributes;
 	}
 
@@ -152,7 +152,7 @@ class ExtraField extends Model
 		$multiValue = new \Codalia\Journal\Models\MultiValue;
 
 		$multiValue->id = $idNb;
-		$multiValue->extra_field_id = $this->id;
+		$multiValue->field_id = $this->id;
 		$multiValue->value = $input['multi_value_value_'.$idNb];
 		$multiValue->text = $input['multi_value_text_'.$idNb];
 		$multiValue->ordering = $input['multi_value_ordering_'.$idNb];

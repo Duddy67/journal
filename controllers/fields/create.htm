@@ -1,6 +1,6 @@
 <?php Block::put('breadcrumb') ?>
     <ul>
-        <li><a href="<?= Backend::url('codalia/journal/extrafields') ?>">Extra Fields</a></li>
+        <li><a href="<?= Backend::url('codalia/journal/fields') ?>">Fields</a></li>
         <li><?= e($this->pageTitle) ?></li>
     </ul>
 <?php Block::endPut() ?>
@@ -20,7 +20,7 @@
 		    id="on-save"
                     data-request="onSave"
                     data-hotkey="ctrl+s, cmd+s"
-                    data-load-indicator="Creating ExtraField..."
+                    data-load-indicator="Creating Field..."
                     class="btn btn-primary">
                     Create
                 </button>
@@ -30,12 +30,12 @@
                     data-request="onSave"
                     data-request-data="close:1"
                     data-hotkey="ctrl+enter, cmd+enter"
-                    data-load-indicator="Creating ExtraField..."
+                    data-load-indicator="Creating Field..."
                     class="btn btn-default">
                     Create and Close
                 </button>
                 <span class="btn-text">
-                    or <a href="<?= Backend::url('codalia/journal/extrafields') ?>">Cancel</a>
+                    or <a href="<?= Backend::url('codalia/journal/fields') ?>">Cancel</a>
                 </span>
             </div>
         </div>
@@ -45,7 +45,7 @@
 <?php else: ?>
 
     <p class="flash-message static error"><?= e($this->fatalError) ?></p>
-    <p><a href="<?= Backend::url('codalia/journal/extrafields') ?>" class="btn btn-default">Return to extra fields list</a></p>
+    <p><a href="<?= Backend::url('codalia/journal/fields') ?>" class="btn btn-default">Return to fields list</a></p>
 
 <?php endif ?>
 

@@ -1,8 +1,8 @@
 <div data-control="toolbar">
     <a
-        href="<?= Backend::url('codalia/journal/extrafields/create') ?>"
+        href="<?= Backend::url('codalia/journal/fields/create') ?>"
         class="btn btn-primary oc-icon-plus">
-        New Extra Field
+        New Field
     </a>
 
     <button
@@ -36,7 +36,7 @@
         disabled="disabled"
         onclick="$(this).data('request-data', { checked: $('.control-list').listWidget('getChecked') })"
         data-request="onDelete"
-        data-request-confirm="Are you sure you want to delete the selected Extra Fields?"
+        data-request-confirm="Are you sure you want to delete the selected Fields?"
         data-trigger-action="enable"
         data-trigger=".control-list input[type=checkbox]"
         data-trigger-condition="checked"

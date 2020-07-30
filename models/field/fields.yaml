@@ -22,15 +22,15 @@ fields:
         type: dropdown
 
     groups:
-        label: codalia.journal::lang.extra_field.groups
+        label: codalia.journal::lang.field.groups
         span: left
         type: taglist
         useKey: true
         options:
-          group_a: codalia.journal::lang.extra_field.group_a
-          group_b: codalia.journal::lang.extra_field.group_b
-          group_c: codalia.journal::lang.extra_field.group_c
-          group_d: codalia.journal::lang.extra_field.group_d
+          group_a: codalia.journal::lang.field.group_a
+          group_b: codalia.journal::lang.field.group_b
+          group_c: codalia.journal::lang.field.group_c
+          group_d: codalia.journal::lang.field.group_d
 
     status:
         tab: codalia.journal::lang.attribute.tab_manage
@@ -41,7 +41,7 @@ fields:
 
     default_value:
         tab: codalia.journal::lang.attribute.tab_manage
-        label: codalia.journal::lang.extra_field.default_value
+        label: codalia.journal::lang.field.default_value
         span: left
 
     id:
@@ -61,5 +61,5 @@ fields:
     _multivalues:
         label:
         type: partial
-        path: ~/plugins/codalia/journal/models/extrafield/multi_values.htm
+        path: ~/plugins/codalia/journal/models/field/multi_values.htm
 

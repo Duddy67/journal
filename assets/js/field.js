@@ -8,8 +8,8 @@
     $('#layout-sidenav').prepend('<div class="disable-panel">&nbsp;</div>');
     $('.control-toolbar').attr('style', 'table-layout: auto !important');
 
-    $('#Form-field-ExtraField-type').change( function() { $.fn.setFieldType($('#Form-field-ExtraField-type').val()); });
-    $.fn.setFieldType($('#Form-field-ExtraField-type').val());
+    $('#Form-field-Field-type').change( function() { $.fn.setFieldType($('#Form-field-Field-type').val()); });
+    $.fn.setFieldType($('#Form-field-Field-type').val());
   });
 
   $.fn.setFieldType = function(type) {

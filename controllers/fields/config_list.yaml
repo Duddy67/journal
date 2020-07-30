@@ -3,16 +3,16 @@
 # ===================================
 
 # Model List Column configuration
-list: $/codalia/journal/models/extrafield/columns.yaml
+list: $/codalia/journal/models/field/columns.yaml
 
 # Model Class name
-modelClass: Codalia\Journal\Models\ExtraField
+modelClass: Codalia\Journal\Models\Field
 
 # List Title
-title: Manage Extra Fields
+title: Manage Fields
 
 # Link URL for each record
-recordUrl: codalia/journal/extrafields/update/:id/edit
+recordUrl: codalia/journal/fields/update/:id/edit
 
 # Message to display if the list is empty
 noRecordsMessage: backend::lang.list.no_records
