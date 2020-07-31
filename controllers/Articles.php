@@ -199,4 +199,15 @@ class Articles extends Controller
 	// Calls the original update_onSave method
 	return $this->asExtension('FormController')->update_onSave($recordId, $context);
     }
+
+    public function loadScripts()
+    {
+	$preferences = \Backend\Models\UserPreference::forUser()->get('backend::backend.preferences');
+	$this->addJs('/plugins/codalia/journal/assets/js/lang/'.$preferences['locale'].'.js');
+	$this->addJs('/plugins/codalia/journal/assets/js/article.js');
+	$this->addJs('/plugins/codalia/journal/assets/js/codalia-ajax.js');
+	$this->addJs('/plugins/codalia/journal/assets/js/codalia-dynamic-item.js');
+	$this->addJs('/plugins/codalia/journal/assets/js/fields.js');
+	$this->addCss(url('plugins/codalia/journal/assets/css/extra.css'));
+    }
 }

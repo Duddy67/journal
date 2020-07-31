@@ -67,7 +67,12 @@ class Field extends Model
         'multi_values' => ['Codalia\Journal\Models\MultiValue']
     ];
     public $belongsTo = [];
-    public $belongsToMany = [];
+    public $belongsToMany = [
+        'groups' => [
+            'Codalia\Journal\Models\Group',
+            'table' => 'codalia_journal_fields_groups',
+        ]
+    ];
     public $morphTo = [];
     public $morphOne = [];
     public $morphMany = [];
@@ -101,7 +106,6 @@ class Field extends Model
     public function afterSave()
     {
 	$this->setMultiValues();
-	file_put_contents('debog_file.txt', print_r($this->groups, true)); 
     }
 
     public function afterDelete()

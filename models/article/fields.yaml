@@ -130,5 +130,12 @@ secondaryTabs:
             span: left
             disabled: true
 
+        field_group:
+            tab: codalia.journal::lang.article.tab_fields
+            label: codalia.journal::lang.attribute.field_group
+            span: left
+            type: relation
+            emptyOption: codalia.journal::lang.action.select
+
 
 

@@ -16,7 +16,6 @@ class CreateFieldsTable extends Migration
             $table->char('type', 25)->index();
             $table->char('status', 15)->default('unpublished');
 	    $table->boolean('required');
-	    $table->string('groups')->nullable();
 	    $table->string('default_value')->nullable();
 	    $table->integer('checked_out')->unsigned()->nullable()->index();
 	    $table->timestamp('checked_out_time')->nullable();

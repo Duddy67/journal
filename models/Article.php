@@ -119,6 +119,7 @@ class Article extends Model
     public $belongsTo = [
         'user' => ['Backend\Models\User', 'key' => 'created_by'],
         'category' => ['Codalia\Journal\Models\Category', 'key' => 'category_id'],
+        'field_group' => ['Codalia\Journal\Models\Group', 'key' => 'field_group_id'],
     ];
     public $belongsToMany = [
         'categories' => [
@@ -200,6 +201,10 @@ class Article extends Model
 	$status = (isset($this->status)) ? $this->status : 'unpublished';
 
 	return Lang::get($statuses[$status]);
+    }
+
+    public function getFields($groupId, $id)
+    {
     }
 
     public function beforeCreate()

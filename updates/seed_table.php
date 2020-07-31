@@ -3,6 +3,7 @@
 use Seeder;
 use Codalia\Journal\Models\Article;
 use Codalia\Journal\Models\Category;
+use Codalia\Journal\Models\Group;
 
 class SeedJournalTables extends Seeder
 {
@@ -55,6 +56,8 @@ class SeedJournalTables extends Seeder
                           ['name' => 'United States', 'slug' => 'united-states']
     ];
 
+    public $groups = [['name' => 'Group A'], ['name' => 'Group B'], ['name' => 'Group C'], ['name' => 'Group D']];
+
 
     public function run()
     {
@@ -75,6 +78,10 @@ class SeedJournalTables extends Seeder
 	Category::create(['name' => $category['name'], 'slug' => $category['slug'], 
 		     'description' => '<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', 
 		     'status' => 'published']);
+      }
+
+      foreach ($this->groups as $group) {
+	Group::create(['name' => $group['name']]);
       }
     }
 }
