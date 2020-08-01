@@ -1,0 +1,3 @@
+
+Codalia.Fields = class {
+}

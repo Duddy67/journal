@@ -67,7 +67,7 @@ class Group extends Model
     public $belongsTo = [];
     public $belongsToMany = [
         'fields' => [
-            'Codalia\Journal\Models\Fields',
+            'Codalia\Journal\Models\Field',
             'table' => 'codalia_journal_fields_groups',
         ]
     ];

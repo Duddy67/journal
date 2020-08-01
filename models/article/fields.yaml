@@ -137,5 +137,11 @@ secondaryTabs:
             type: relation
             emptyOption: codalia.journal::lang.action.select
 
+        _fields:
+            tab: codalia.journal::lang.article.tab_fields
+            label:
+            type: partial
+            path: ~/plugins/codalia/journal/models/article/fields.htm
+
 
 

@@ -12,6 +12,7 @@ use October\Rain\Database\Traits\Validation;
 use Carbon\Carbon;
 use Codalia\Journal\Models\Category as ArticleCategory;
 use Codalia\Journal\Models\Settings;
+use Codalia\Journal\Models\Group;
 use Codalia\Journal\Components\Articles;
 
 
@@ -203,8 +204,16 @@ class Article extends Model
 	return Lang::get($statuses[$status]);
     }
 
-    public function getFields($groupId, $id)
+    public static function getFields($groupId, $id)
     {
+        // Gets the fields linked to the group.
+        $fields = Group::find($groupId)->fields;
+	$data = [];
+	foreach ($fields as $field) {
+	    $data[] = ['name' => $field->name, 'code' => $field->code, 'type' => $field->type];
+	}
+//file_put_contents('debog_file.txt', print_r($fields, true));
+	return $data;
     }
 
     public function beforeCreate()
