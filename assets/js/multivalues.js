@@ -52,8 +52,8 @@
   /** Callback functions **/
 
   getAjaxResult = function(result) {
-    if(result.success !== true) {
-      $.each(result, function(i, item) { GETTER.multi_value.createItem(item); });
+    if(result.success === true) {
+      $.each(result.data, function(i, item) { GETTER.multi_value.createItem(item); });
     }
     else {
       alert('Error: '+result.message);

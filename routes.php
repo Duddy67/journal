@@ -25,7 +25,19 @@ Route::get('backend/codalia/journal/fields/json/{id}/{token}', function($id, $to
 	return redirect('404');
     }
 
-    echo json_encode(Field::getMultiValues($id));
+    // Prepares the response.
+    $response = ['success' => true, 'message' => '', 'data' => ''];
+
+    try {
+	$data = Field::getMultiValues($id);
+	$response['data'] = $data;
+    }
+    catch (Exception $e) {
+	$response['success'] = false;
+	$response['message'] = $e->getMessage();
+    }
+
+    echo json_encode($response);
 
 })->middleware('web');
 
@@ -34,6 +46,18 @@ Route::get('backend/codalia/journal/articles/json/{id}/{group_id}/{token}', func
 	return redirect('404');
     }
 
-    echo json_encode(Article::getFields($groupId, $id));
+    // Prepares the response.
+    $response = ['success' => true, 'message' => '', 'data' => ''];
+
+    try {
+	$data = Article::getFields($groupId, $id);
+	$response['data'] = $data;
+    }
+    catch (Exception $e) {
+	$response['success'] = false;
+	$response['message'] = $e->getMessage();
+    }
+
+    echo json_encode($response);
 
 })->middleware('web');

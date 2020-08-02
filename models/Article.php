@@ -212,7 +212,7 @@ class Article extends Model
 	foreach ($fields as $field) {
 	    $data[] = ['name' => $field->name, 'code' => $field->code, 'type' => $field->type];
 	}
-//file_put_contents('debog_file.txt', print_r($fields, true));
+
 	return $data;
     }
 
