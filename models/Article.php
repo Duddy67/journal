@@ -209,9 +209,19 @@ class Article extends Model
         // Gets the fields linked to the group.
         $fields = Group::find($groupId)->fields;
 	$data = [];
-	foreach ($fields as $field) {
+	foreach ($fields as $key => $field) {
 	  $data[] = ['name' => $field->name, 'code' => $field->code, 'type' => $field->type, 
 	             'required' => $field->required, 'default_value' => $field->default_value];
+
+	  if ($field->type == 'list' || $field->type == 'radio' || $field->type == 'checkbox') {
+	      $options = [];
+	      foreach ($field->options as $option) {
+		  $options[] = ['value' => $option->attributes['value'], 'text' => $option->attributes['text']];
+	      }
+
+	      $data[$key]['options'] = $options;
+//file_put_contents('debog_file.txt', print_r($field->options, true));
+	  }
 	}
 
 	return $data;
