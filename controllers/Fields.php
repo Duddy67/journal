@@ -162,7 +162,7 @@ class Fields extends Controller
 	$this->addJs('/plugins/codalia/journal/assets/js/field.js');
 	$this->addJs('/plugins/codalia/journal/assets/js/codalia-ajax.js');
 	$this->addJs('/plugins/codalia/journal/assets/js/codalia-dynamic-item.js');
-	$this->addJs('/plugins/codalia/journal/assets/js/multivalues.js');
+	$this->addJs('/plugins/codalia/journal/assets/js/options.js');
 	$this->addCss(url('plugins/codalia/journal/assets/css/extra.css'));
     }
 }

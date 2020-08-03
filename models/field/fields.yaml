@@ -52,8 +52,8 @@ fields:
         on: codalia.journal::lang.attribute.yes
         off: codalia.journal::lang.attribute.no
 
-    _multivalues:
+    _options:
         label:
         type: partial
-        path: ~/plugins/codalia/journal/models/field/multi_values.htm
+        path: ~/plugins/codalia/journal/models/field/options.htm
 

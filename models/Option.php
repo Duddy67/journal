@@ -3,16 +3,16 @@
 use Model;
 
 /**
- * MultiValue Model
+ * Option Model
  */
-class MultiValue extends Model
+class Option extends Model
 {
     use \October\Rain\Database\Traits\Validation;
 
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'codalia_journal_multi_values';
+    public $table = 'codalia_journal_options';
 
     public $incrementing = false;
 

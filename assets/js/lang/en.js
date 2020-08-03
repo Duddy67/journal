@@ -9,7 +9,7 @@ var CodaliaLang = {
   },
   "pagination" : { "beginning":"Beginning", "end":"End", "previous":"Previous", "next":"Next"
   },
-  "multi_value" : { "value_label":"Value", "value_desc":"Value",
-		    "text_label":"Text", "text_desc":"Text"
+  "option" : { "value_label":"Value", "value_desc":"Value",
+	       "text_label":"Text", "text_desc":"Text"
   }
 }

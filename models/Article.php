@@ -210,7 +210,8 @@ class Article extends Model
         $fields = Group::find($groupId)->fields;
 	$data = [];
 	foreach ($fields as $field) {
-	    $data[] = ['name' => $field->name, 'code' => $field->code, 'type' => $field->type];
+	  $data[] = ['name' => $field->name, 'code' => $field->code, 'type' => $field->type, 
+	             'required' => $field->required, 'default_value' => $field->default_value];
 	}
 
 	return $data;

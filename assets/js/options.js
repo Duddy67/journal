@@ -8,10 +8,10 @@
     // The input element containing the root location.
     let rootLocation = $('#root-location').val();
     // Sets the dynamic item properties.
-    let props = {'vendor':'codalia', 'plugin':'journal', 'item':'multi_value', 'ordering':true, 'rootLocation':rootLocation, 'rowsCells':[4], 'Select2':true};
+    let props = {'vendor':'codalia', 'plugin':'journal', 'item':'option', 'ordering':true, 'rootLocation':rootLocation, 'rowsCells':[4], 'Select2':true};
 
     // Stores the newly created object.
-    GETTER.multi_value = new Codalia.DynamicItem(props);
+    GETTER.option = new Codalia.DynamicItem(props);
     // Sets the validating function.
     $('[id^="on-save"]').click( function(e) { validateFields(e); });
 
@@ -33,10 +33,10 @@
       return true;
     }
 
-    let count = $('#multi_value-container').find('[id^="multi_value-item-"]').length;
+    let count = $('#option-container').find('[id^="option-item-"]').length;
     let fields = {'value':'snake_case', 'text':''};
 
-    if(!GETTER.multi_value.validateFields(fields) || count == 0) {
+    if(!GETTER.option.validateFields(fields) || count == 0) {
       // Shows the dynamic item tab.
       //$('.nav-tabs a[href="#secondarytab-4"]').tab('show');
       if(count == 0) {
@@ -53,36 +53,36 @@
 
   getAjaxResult = function(result) {
     if(result.success === true) {
-      $.each(result.data, function(i, item) { GETTER.multi_value.createItem(item); });
+      $.each(result.data, function(i, item) { GETTER.option.createItem(item); });
     }
     else {
       alert('Error: '+result.message);
     }
   }
 
-  populateMulti_valueItem = function(idNb, data) {
+  populateOptionItem = function(idNb, data) {
     // Defines the default field values.
     if(data === undefined) {
       data = {'id':'', 'value':'', 'text':''};
     }
 
     // Element label.
-    let attribs = {'title':CodaliaLang.multi_value.value_desc, 'class':'item-label', 'id':'multi_value-value-label-'+idNb};
-    $('#multi_value-row-1-cell-1-'+idNb).append(GETTER.multi_value.createElement('span', attribs));
-    $('#multi_value-value-label-'+idNb).text(CodaliaLang.multi_value.value_label);
+    let attribs = {'title':CodaliaLang.option.value_desc, 'class':'item-label', 'id':'option-value-label-'+idNb};
+    $('#option-row-1-cell-1-'+idNb).append(GETTER.option.createElement('span', attribs));
+    $('#option-value-label-'+idNb).text(CodaliaLang.option.value_label);
 
     // Text input tag:
-    attribs = {'type':'text', 'name':'multi_value_value_'+idNb, 'id':'multi_value-value-'+idNb, 'class':'form-control', 'value':data.value};
-    $('#multi_value-row-1-cell-1-'+idNb).append(GETTER.multi_value.createElement('input', attribs));
+    attribs = {'type':'text', 'name':'option_value_'+idNb, 'id':'option-value-'+idNb, 'class':'form-control', 'value':data.value};
+    $('#option-row-1-cell-1-'+idNb).append(GETTER.option.createElement('input', attribs));
 
     // Element label.
-    attribs = {'title':CodaliaLang.multi_value.text_desc, 'class':'item-label', 'id':'multi_value-text-label-'+idNb};
-    $('#multi_value-row-1-cell-2-'+idNb).append(GETTER.multi_value.createElement('span', attribs));
-    $('#multi_value-text-label-'+idNb).text(CodaliaLang.multi_value.text_label);
+    attribs = {'title':CodaliaLang.option.text_desc, 'class':'item-label', 'id':'option-text-label-'+idNb};
+    $('#option-row-1-cell-2-'+idNb).append(GETTER.option.createElement('span', attribs));
+    $('#option-text-label-'+idNb).text(CodaliaLang.option.text_label);
 
     // Text input tag:
-    attribs = {'type':'text', 'name':'multi_value_text_'+idNb, 'id':'multi_value-text-'+idNb, 'class':'form-control', 'value':data.text};
-    $('#multi_value-row-1-cell-2-'+idNb).append(GETTER.multi_value.createElement('input', attribs));
+    attribs = {'type':'text', 'name':'option_text_'+idNb, 'id':'option-text-'+idNb, 'class':'form-control', 'value':data.text};
+    $('#option-row-1-cell-2-'+idNb).append(GETTER.option.createElement('input', attribs));
   }
 
   reverseOrder = function(direction, idNb, dynamicItemType) {

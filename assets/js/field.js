@@ -14,10 +14,10 @@
 
   $.fn.setFieldType = function(type) {
     if (type == 'list' || type == 'checkbox' || type == 'radio') {
-      $('#multi_value').css({'visibility':'visible','display':'block'});
+      $('#option').css({'visibility':'visible','display':'block'});
     }
     else {
-      $('#multi_value').css({'visibility':'hidden','display':'none'});
+      $('#option').css({'visibility':'hidden','display':'none'});
     }
   }
 

@@ -4,11 +4,11 @@ use Schema;
 use October\Rain\Database\Schema\Blueprint;
 use October\Rain\Database\Updates\Migration;
 
-class CreateMultiValuesTable extends Migration
+class CreateOptionsTable extends Migration
 {
     public function up()
     {
-        Schema::create('codalia_journal_multi_values', function (Blueprint $table) {
+        Schema::create('codalia_journal_options', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->integer('id');
 	    $table->integer('field_id')->unsigned()->nullable()->index();
@@ -20,6 +20,6 @@ class CreateMultiValuesTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('codalia_journal_multi_values');
+        Schema::dropIfExists('codalia_journal_options');
     }
 }

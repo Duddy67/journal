@@ -29,7 +29,7 @@ Route::get('backend/codalia/journal/fields/json/{id}/{token}', function($id, $to
     $response = ['success' => true, 'message' => '', 'data' => ''];
 
     try {
-	$data = Field::getMultiValues($id);
+	$data = Field::getOptions($id);
 	$response['data'] = $data;
     }
     catch (Exception $e) {

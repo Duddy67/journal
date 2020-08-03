@@ -8,8 +8,8 @@
     - create_orderings_table.php
     - 'Created table codalia_journal_fields_table'
     - create_fields_table.php
-    - 'Created table codalia_journal_multi_values_table'
-    - create_multi_values_table.php
+    - 'Created table codalia_journal_options_table'
+    - create_options_table.php
     - 'Created table codalia_journal_groups_table'
     - create_groups_table.php
     - 'Seeded codalia_journal_articles table'

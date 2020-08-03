@@ -76,7 +76,7 @@ div.checked-out >span.lock:before {
   margin-bottom: 0;
 }
 
-.multi_value-container {
+.option-container {
   width: 100%;
   /*border: 1px solid #666666;*/
 }
@@ -86,15 +86,15 @@ div.checked-out >span.lock:before {
   margin-bottom: 30px;
 }
 
-.multi_value-item {
+.option-item {
   width: 100%;
   border-bottom: 1px solid #ddd;
   padding-top: 10px;
   padding-left: 8px;
 }
 
-.multi_value-cells-row-1,
-.multi_value-cells-row-2 {
+.option-cells-row-1,
+.option-cells-row-2 {
   display: table-cell;
   padding-bottom: 10px;
   padding-right: 15px;
@@ -102,7 +102,7 @@ div.checked-out >span.lock:before {
   /*border: 1px solid #ddd;*/
 }
 
-.multi_value-order-number {
+.option-order-number {
   width: 30px;
   font-weight: bold;
   text-align: center;

@@ -64,7 +64,7 @@ class Field extends Model
      */
     public $hasOne = [];
     public $hasMany = [
-        'multi_values' => ['Codalia\Journal\Models\MultiValue']
+        'options' => ['Codalia\Journal\Models\Option']
     ];
     public $belongsTo = [];
     public $belongsToMany = [
@@ -105,63 +105,63 @@ class Field extends Model
 
     public function afterSave()
     {
-	$this->setMultiValues();
+	$this->setOptions();
     }
 
     public function afterDelete()
     {
         // Deletes relationship rows linked to the deleted book.
-        $this->multi_values()->where('field_id', $this->id)->delete();
+        $this->options()->where('field_id', $this->id)->delete();
     }
 
     /**
-     * Returns the multi values of a given extra field.
+     * Returns the options of a given extra field.
      * @param integer $recordId
      *
      * @return array
      */
-    public static function getMultiValues($recordId)
+    public static function getOptions($recordId)
     {
         if (!ctype_digit($recordId)) {
 	    return [];
 	}
 
-	$field = Field::with(['multi_values' => function ($query){
+	$field = Field::with(['options' => function ($query){
 	    $query->orderBy('ordering');
 	}])->where('id', $recordId)->first();
 
-	$multiValues = [];
+	$options = [];
 
-	foreach ($field->multi_values as $multiValue) {
-	    $multiValues[] = $multiValue->attributes;
+	foreach ($field->options as $option) {
+	    $options[] = $option->attributes;
 	}
 
-	return $multiValues;
+	return $options;
     }
 
     /**
-     * Parses the multi value fields and stores their values.
+     * Parses the option fields and stores their values.
      *
      * @return void
      */
-    public function setMultiValues()
+    public function setOptions()
     {
         // First resets the multi value set.
-        $this->multi_values()->delete();
+        $this->options()->delete();
         $input = \Input::all();
 
 	foreach ($input as $key => $value) {
-	    if(preg_match('#^multi_value_value_([0-9]+)$#', $key, $matches)) {
+	    if(preg_match('#^option_value_([0-9]+)$#', $key, $matches)) {
 		$idNb = $matches[1];
-		$multiValue = new \Codalia\Journal\Models\MultiValue;
+		$option = new \Codalia\Journal\Models\Option;
 
-		$multiValue->id = $idNb;
-		$multiValue->field_id = $this->id;
-		$multiValue->value = $input['multi_value_value_'.$idNb];
-		$multiValue->text = $input['multi_value_text_'.$idNb];
-		$multiValue->ordering = $input['multi_value_ordering_'.$idNb];
+		$option->id = $idNb;
+		$option->field_id = $this->id;
+		$option->value = $input['option_value_'.$idNb];
+		$option->text = $input['option_text_'.$idNb];
+		$option->ordering = $input['option_ordering_'.$idNb];
 
-		$multiValue->save();
+		$option->save();
 	    }
 	}
     }
