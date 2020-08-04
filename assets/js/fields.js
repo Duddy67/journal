@@ -34,12 +34,25 @@
   }
 
   createField = function(field) {
+    let id = 'Form-field-ExtraField-'+field.code+'-group';
+    let attribs = {'data-field-name':field.code, 'id':id, 'class':'form-group span-left'};
+    $('#field').append(createElement('div', attribs));
+    attribs = {'for':id};
+    $('#'+id).append(createElement('label', attribs));
+    $('#'+id+' > label').text(field.name);
+
+    if(field.type == 'checkbox') {
+      attribs = {'id':'field-checkboxlist-'+field.code, 'class':'field-checkboxlist-inner'};
+      $('#'+id).append(createElement('div', attribs));
+      id = 'field-checkboxlist-'+field.code;
+    }
+
     let type = field.type.charAt(0).toUpperCase() + field.type.slice(1);
     var create = window['create'+type];
-    create(field);
+    create(field, id);
   }
 
-  createList = function(field) {
+  createList = function(field, id) {
     let attribs = {'name':'xtrf_'+field.code, 'id':'xtrf-'+field.code, 'class':'form-control custom-select'};
     let element = createElement('select', attribs);
     let options = '';
@@ -49,33 +62,49 @@
       options += '<option value="'+field.options[i].value+'" '+selected+'>'+field.options[i].text+'</option>';
     }
 
-    $('#field').append(element);
+    $('#'+id).append(element);
     $('#xtrf-'+field.code).html(options);
     $('#xtrf-'+field.code).select2();
   }
 
-  createRadio = function(field) {
+  createRadio = function(field, id) {
     for(let i = 0; i < field.options.length; i++) {
       let value = field.options[i].value;
-      let attribs = {'type':'radio', 'name':'xtrf_'+field.code, 'id':'xtrf-'+field.code+'-'+value, 'value':value};
-      $('#field').append(createElement('input', attribs));
+      let attribs = {'class':'radio', 'id':field.code+'-'+value};
+      $('#'+id).append(createElement('div', attribs));
+
+      attribs = {'type':'radio', 'name':'xtrf_'+field.code, 'id':'xtrf-'+field.code+'-'+value, 'value':value};
+      $('#'+field.code+'-'+value).append(createElement('input', attribs));
+
+      attribs = {'for':field.code+'-'+value};
+      $('#'+field.code+'-'+value).append(createElement('label', attribs));
+      $('#'+field.code+'-'+value+' > label').text(field.options[i].text);
     }
   }
 
-  createCheckbox = function(field) {
+  createCheckbox = function(field, id) {
     for(let i = 0; i < field.options.length; i++) {
       let value = field.options[i].value;
-      let attribs = {'type':'checkbox', 'name':'xtrf_'+field.code+'_'+value, 'id':'xtrf-'+field.code+'-'+value, 'value':value};
-      $('#field').append(createElement('input', attribs));
+      let attribs = {'class':'checkbox', 'id':field.code+'-'+value};
+      $('#'+id).append(createElement('div', attribs));
+
+      attribs = {'type':'checkbox', 'name':'xtrf_'+field.code+'_'+value, 'id':'xtrf-'+field.code+'-'+value, 'value':value};
+      $('#'+field.code+'-'+value).append(createElement('input', attribs));
+
+      attribs = {'for':field.code+'-'+value};
+      $('#'+field.code+'-'+value).append(createElement('label', attribs));
+      $('#'+field.code+'-'+value+' > label').text(field.options[i].text);
     }
   }
 
-  createText = function(field) {
+  createText = function(field, id) {
     let attribs = {'type':'text', 'name':'xtrf_'+field.code, 'id':'xtrf-'+field.code, 'class':'form-control'};
-    $('#field').append(createElement('input', attribs));
+    $('#'+id).append(createElement('input', attribs));
   }
 
-  createTextarea = function(field) {
+  createTextarea = function(field, id) {
+    let attribs = {'name':'xtrf_'+field.code, 'id':'xtrf-'+field.code, 'class':'form-control field-textarea'};
+    $('#'+id).append(createElement('textarea', attribs));
   }
 
   /**
