@@ -220,7 +220,6 @@ class Article extends Model
 	      }
 
 	      $data[$key]['options'] = $options;
-//file_put_contents('debog_file.txt', print_r($field->options, true));
 	  }
 	}
 

@@ -10,12 +10,13 @@
   });
 
   $.fn.setFields = function(groupId) {
+
+    $('#field').empty();
+
     if(groupId == '') {
       //alert('group id '+id);
       return;
     }
-
-    $('#field').empty();
 
     // Stores the newly created object.
     //GETTER.fields = new Codalia.Fields(props);
@@ -186,7 +187,10 @@
 
   getAjaxResult = function(result) {
     if(result.success === true) {
-      $.each(result.data, function(i, field) { createField(field); });
+      $.each(result.data, function(i, field) {
+	  elem = new Codalia.Field(field);
+	  elem[field.type]();
+      });
     }
     else {
       alert('Error: '+result.message);

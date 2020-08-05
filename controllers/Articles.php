@@ -206,7 +206,8 @@ class Articles extends Controller
 	$this->addJs('/plugins/codalia/journal/assets/js/lang/'.$preferences['locale'].'.js');
 	$this->addJs('/plugins/codalia/journal/assets/js/article.js');
 	$this->addJs('/plugins/codalia/journal/assets/js/codalia-ajax.js');
-	$this->addJs('/plugins/codalia/journal/assets/js/codalia-dynamic-item.js');
+	//$this->addJs('/plugins/codalia/journal/assets/js/codalia-dynamic-item.js');
+	$this->addJs('/plugins/codalia/journal/assets/js/codalia-field.js');
 	$this->addJs('/plugins/codalia/journal/assets/js/fields.js');
 	$this->addCss(url('plugins/codalia/journal/assets/css/extra.css'));
     }
