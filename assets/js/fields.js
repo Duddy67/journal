@@ -1,5 +1,5 @@
 (function($) {
-  // A global variable to store then access the fields objects.
+  // A global variable to store then access the field objects.
   const GETTER = {};
 
   // Run a function when the page is fully loaded including graphics.
@@ -14,6 +14,8 @@
       //alert('group id '+id);
       return;
     }
+
+    $('#field').empty();
 
     // Stores the newly created object.
     //GETTER.fields = new Codalia.Fields(props);
@@ -105,6 +107,56 @@
   createTextarea = function(field, id) {
     let attribs = {'name':'xtrf_'+field.code, 'id':'xtrf-'+field.code, 'class':'form-control field-textarea'};
     $('#'+id).append(createElement('textarea', attribs));
+  }
+
+  createDatetime = function(field, id) {
+    let attribs = {'name':'xtrf_'+field.code, 'id':'xtrf-'+field.code, 'class':'form-control field-textarea'};
+    $('#'+id).append(createElement('textarea', attribs));
+  }
+
+  /**
+   * Creates a date and time fields into a given location.
+   *
+   * @param   string    name		The name of the date time field.
+   * @param   integer   idNb		The item id number.
+   * @param   string    rowCellId	The location where the date time field is created.
+   * @param   string    value		The datetime value.
+   * @param   boolean   time		If true, displays the time field.
+   *
+   * @return  void
+  */
+  createDate = function(field, id) {
+    let attribs = {'class':'field-datepicker', 'data-control':'datepicker', 'data-mode':'datetime', 'id':'datepicker-'+field.code};
+    document.getElementById(id).appendChild(this.createElement('div', attribs));
+
+    attribs = {'class':'input-with-icon right-align datetime-field', 'id':'div-date-'+field.code};
+    document.getElementById('datepicker-'+field.code).appendChild(this.createElement('div', attribs));
+
+    attribs = {'class':'icon icon-calendar-o'};
+    document.getElementById('div-date-'+field.code).appendChild(this.createElement('i', attribs));
+
+    attribs = {'type':'text', 'id':'xtrf-date-'+field.code, 'class':'form-control', 'autocomplete':'off', 'data-datepicker':''};
+    document.getElementById('div-date-'+field.code).appendChild(this.createElement('input', attribs));
+
+    /*if(time) {
+      attribs = {'class':'input-with-icon right-align datetime-field', 'id':'div-time-'+name+'-'+idNb};
+      document.getElementById('datepicker-'+name+'-'+idNb).appendChild(this.createElement('div', attribs));
+
+      attribs = {'class':'icon icon-clock-o'};
+      document.getElementById('div-time-'+name+'-'+idNb).appendChild(this.createElement('i', attribs));
+
+      attribs = {'type':'text', 'id':this.itemType+'-time-'+name+'-'+idNb, 'class':'form-control', 'autocomplete':'off', 'data-timepicker':''};
+      document.getElementById('div-time-'+name+'-'+idNb).appendChild(this.createElement('input', attribs));
+    }*/
+
+    if(field.value == null) {
+      field.value = '';
+    }
+
+    attribs = {'type':'hidden', 'name':'xtrf_'+field.code, 'id':'xtrf-'+field.code, 'value':field.value, 'data-datetime-value':''};
+    document.getElementById('datepicker-'+field.code).appendChild(this.createElement('input', attribs));
+
+    $('[data-control="datepicker"]').datePicker();
   }
 
   /**

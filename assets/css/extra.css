@@ -78,7 +78,6 @@ div.checked-out >span.lock:before {
 
 .option-container {
   width: 100%;
-  /*border: 1px solid #666666;*/
 }
 
 .add-button-container {
@@ -147,5 +146,12 @@ div[class$='-odd'] {
 
 div[class$='-even'] {
   background-color: #fff;
+}
+
+.field-container {
+  overflow: hidden;
+  padding: 10px;
+  border: 1px solid #d1d6d9;
+  border-radius: 5px;
 }
 
