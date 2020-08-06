@@ -2,6 +2,7 @@
 Codalia.Field = class {
   constructor(props) {
     // Sets the field properties.
+    this.id = props.id;
     this.name = props.name;
     this.code = props.code;
     this.type = props.type;
@@ -32,17 +33,17 @@ Codalia.Field = class {
   }
 
   text = function() {
-    let attribs = {'type':'text', 'name':'xtrf_'+this.code, 'id':'xtrf-'+this.code, 'class':'form-control'};
+    let attribs = {'type':'text', 'name':'xtrf_'+this.id+'_'+this.type+'_'+this.code, 'id':'xtrf-'+this.code, 'class':'form-control'};
     document.getElementById(this.parentDivId).appendChild(this.createElement('input', attribs)); 
   }
 
   textarea = function() {
-    let attribs = {'name':'xtrf_'+this.code, 'id':'xtrf-'+this.code, 'class':'form-control field-textarea'};
+    let attribs = {'name':'xtrf_'+this.id+'_'+this.type+'_'+this.code, 'id':'xtrf-'+this.code, 'class':'form-control field-textarea'};
     document.getElementById(this.parentDivId).appendChild(this.createElement('textarea', attribs)); 
   }
 
   list = function() {
-    let attribs = {'name':'xtrf_'+this.code, 'id':'xtrf-'+this.code, 'class':'form-control custom-select'};
+    let attribs = {'name':'xtrf_'+this.id+'_'+this.type+'_'+this.code, 'id':'xtrf-'+this.code, 'class':'form-control custom-select'};
     let element = this.createElement('select', attribs);
     let options = '';
 
@@ -70,7 +71,7 @@ Codalia.Field = class {
       let attribs = {'class':type, 'id':this.code+'-'+value};
       document.getElementById(this.parentDivId).appendChild(this.createElement('div', attribs)); 
 
-      attribs = {'type':type, 'name':'xtrf_'+this.code, 'id':'xtrf-'+this.code+'-'+value, 'value':value};
+      attribs = {'type':type, 'name':'xtrf_'+this.id+'_'+this.type+'_'+this.code, 'id':'xtrf-'+this.code+'-'+value, 'value':value};
       document.getElementById(this.code+'-'+value).appendChild(this.createElement('input', attribs)); 
 
       attribs = {'for':this.code+'-'+value, 'id':'label-'+this.code+'-'+value};
@@ -128,7 +129,7 @@ Codalia.Field = class {
       this.value = '';
     }
 
-    attribs = {'type':'hidden', 'name':'xtrf_'+this.code, 'id':'xtrf-'+this.code, 'value':this.value, 'data-datetime-value':''};
+    attribs = {'type':'hidden', 'name':'xtrf_'+this.id+'_'+this.type+'_'+this.code, 'id':'xtrf-'+this.code, 'value':this.value, 'data-datetime-value':''};
     document.getElementById('datepicker-'+this.code).appendChild(this.createElement('input', attribs));
 
     $('[data-control="datepicker"]').datePicker();

@@ -210,7 +210,7 @@ class Article extends Model
         $fields = Group::find($groupId)->fields;
 	$data = [];
 	foreach ($fields as $key => $field) {
-	  $data[] = ['name' => $field->name, 'code' => $field->code, 'type' => $field->type, 
+	  $data[] = ['id' => $field->id, 'name' => $field->name, 'code' => $field->code, 'type' => $field->type, 
 	             'required' => $field->required, 'default_value' => $field->default_value];
 
 	  if ($field->type == 'list' || $field->type == 'radio' || $field->type == 'checkbox') {
@@ -224,6 +224,21 @@ class Article extends Model
 	}
 
 	return $data;
+    }
+
+    public function setFields()
+    {
+	$input = \Input::all();
+
+	foreach ($input as $key => $value) {
+	    if(preg_match('#^xtrf_([0-9]+)_([a-z]+)_([a-z0-9_]+)$#', $key, $matches)) {
+	        $id = $matches[1];
+	        $type = $matches[2];
+	        $code = $matches[3];
+
+		$field = $input['xtrf_'.$id.'_'.$type.'_'.$code];
+	    }
+	}
     }
 
     public function beforeCreate()

@@ -21,6 +21,15 @@ class CreateFieldsTable extends Migration
 	    $table->timestamp('checked_out_time')->nullable();
             $table->timestamps();
         });
+
+        Schema::create('codalia_journal_articles_fields', function($table)
+        {
+            $table->engine = 'InnoDB';
+            $table->integer('article_id')->unsigned();
+            $table->integer('field_id')->unsigned();
+	    $table->string('value')->nullable();
+            $table->primary(['article_id', 'field_id']);
+        });
     }
 
     public function down()
