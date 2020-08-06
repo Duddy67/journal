@@ -21,10 +21,14 @@ Codalia.Field = class {
     document.getElementById(this.parentDivId).appendChild(this.createElement('label', attribs)); 
     document.getElementById('label-'+this.code).textContent = this.name;
 
-    return this;
-  }
+    if(this.type == 'date' || this.type == 'datetime') {
+      attribs = {'id':'datetime-row-'+this.code, 'class':'row'};
+      document.getElementById(this.parentDivId).appendChild(this.createElement('div', attribs)); 
+      
+      this.parentDivId = 'datetime-row-'+this.code;
+    }
 
-  create = function() {
+    return this;
   }
 
   text = function() {
@@ -86,17 +90,16 @@ Codalia.Field = class {
   /**
    * Creates a date and time fields into a given location.
    *
-   * @param   string    name		The name of the date time field.
-   * @param   integer   idNb		The item id number.
-   * @param   string    rowCellId	The location where the date time field is created.
-   * @param   string    value		The datetime value.
    * @param   boolean   time		If true, displays the time field.
    *
    * @return  void
   */
   dateField = function(time) {
-    let attribs = {'class':'field-datepicker', 'data-control':'datepicker', 'data-mode':'datetime', 'id':'datepicker-'+this.code};
+    let attribs = {'class':'col-md-6', 'id':'date-wrapper-'+this.code};
     document.getElementById(this.parentDivId).appendChild(this.createElement('div', attribs));
+
+    attribs = {'class':'field-datepicker', 'data-control':'datepicker', 'data-mode':'datetime', 'id':'datepicker-'+this.code};
+    document.getElementById('date-wrapper-'+this.code).appendChild(this.createElement('div', attribs));
 
     attribs = {'class':'input-with-icon right-align datetime-field', 'id':'div-date-'+this.code};
     document.getElementById('datepicker-'+this.code).appendChild(this.createElement('div', attribs));
@@ -108,8 +111,11 @@ Codalia.Field = class {
     document.getElementById('div-date-'+this.code).appendChild(this.createElement('input', attribs));
 
     if(time) {
+      attribs = {'class':'col-md-6', 'id':'datetime-wrapper-'+this.code};
+      document.getElementById(this.parentDivId).appendChild(this.createElement('div', attribs));
+
       attribs = {'class':'input-with-icon right-align datetime-field', 'id':'div-time-'+this.code};
-      document.getElementById('datepicker-'+this.code).appendChild(this.createElement('div', attribs));
+      document.getElementById('datetime-wrapper-'+this.code).appendChild(this.createElement('div', attribs));
 
       attribs = {'class':'icon icon-clock-o'};
       document.getElementById('div-time-'+this.code).appendChild(this.createElement('i', attribs));
