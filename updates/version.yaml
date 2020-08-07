@@ -12,6 +12,8 @@
     - create_options_table.php
     - 'Created table codalia_journal_groups_table'
     - create_groups_table.php
+    - 'Created table codalia_journal_field_values_table'
+    - create_field_values_table.php
     - 'Seeded codalia_journal_articles table'
     - seed_table.php
 

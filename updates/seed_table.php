@@ -4,6 +4,7 @@ use Seeder;
 use Codalia\Journal\Models\Article;
 use Codalia\Journal\Models\Category;
 use Codalia\Journal\Models\Group;
+use Codalia\Journal\Models\Field;
 
 class SeedJournalTables extends Seeder
 {
@@ -58,6 +59,13 @@ class SeedJournalTables extends Seeder
 
     public $groups = [['name' => 'Group A'], ['name' => 'Group B'], ['name' => 'Group C'], ['name' => 'Group D']];
 
+    public $fields = [['name' => 'Editor', 'code' => 'editor', 'type' => 'text'],
+		      ['name' => 'Standard', 'code' => 'standard', 'type' => 'list'],
+		      ['name' => 'Version', 'code' => 'version', 'type' => 'radio'],
+		      ['name' => 'Translations', 'code' => 'translations', 'type' => 'checkbox'],
+		      ['name' => 'Release date', 'code' => 'release_date', 'type' => 'date'],
+		      ['name' => 'Meeting', 'code' => 'meeting', 'type' => 'datetime']
+    ];
 
     public function run()
     {
@@ -82,6 +90,10 @@ class SeedJournalTables extends Seeder
 
       foreach ($this->groups as $group) {
 	Group::create(['name' => $group['name']]);
+      }
+
+      foreach ($this->fields as $field) {
+	Field::create(['name' => $field['name'], 'code' => $field['code'], 'type' => $field['type'], 'status' => 'published']);
       }
     }
 }

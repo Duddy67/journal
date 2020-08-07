@@ -228,7 +228,8 @@ class Article extends Model
 
     public function setFields()
     {
-	$input = \Input::all();
+        $input = \Input::all();
+        $values = $checkboxes = [];
 
 	foreach ($input as $key => $value) {
 	    if(preg_match('#^xtrf_([0-9]+)_([a-z]+)_([a-z0-9_]+)$#', $key, $matches)) {
@@ -236,7 +237,25 @@ class Article extends Model
 	        $type = $matches[2];
 	        $code = $matches[3];
 
-		$field = $input['xtrf_'.$id.'_'.$type.'_'.$code];
+		// Checkbox values will be treated separately.
+		if ($type == 'checkbox') {
+		    if (!array_key_exists($id, $checkboxes)) {
+		        $checkboxes[$id] = [];
+		    }
+
+		    $checkboxes[$id][] = $value;
+
+		    continue;
+		}
+
+		$values[$id] = $value;
+
+	    }
+	}
+
+	if (!empty($checkboxes)) {
+	    foreach ($checkboxes as $key => $array) {
+	        $values[$key] = implode(',', $array);
 	    }
 	}
     }
