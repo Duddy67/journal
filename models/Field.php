@@ -64,7 +64,8 @@ class Field extends Model
      */
     public $hasOne = [];
     public $hasMany = [
-        'options' => ['Codalia\Journal\Models\Option']
+        'options' => ['Codalia\Journal\Models\Option'],
+        'values' => ['Codalia\Journal\Models\FieldValue']
     ];
     public $belongsTo = [];
     public $belongsToMany = [

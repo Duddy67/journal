@@ -204,62 +204,6 @@ class Article extends Model
 	return Lang::get($statuses[$status]);
     }
 
-    public static function getFields($groupId, $id)
-    {
-        // Gets the fields linked to the group.
-        $fields = Group::find($groupId)->fields;
-	$data = [];
-	foreach ($fields as $key => $field) {
-	  $data[] = ['id' => $field->id, 'name' => $field->name, 'code' => $field->code, 'type' => $field->type, 
-	             'required' => $field->required, 'default_value' => $field->default_value];
-
-	  if ($field->type == 'list' || $field->type == 'radio' || $field->type == 'checkbox') {
-	      $options = [];
-	      foreach ($field->options as $option) {
-		  $options[] = ['value' => $option->attributes['value'], 'text' => $option->attributes['text']];
-	      }
-
-	      $data[$key]['options'] = $options;
-	  }
-	}
-
-	return $data;
-    }
-
-    public function setFields()
-    {
-        $input = \Input::all();
-        $values = $checkboxes = [];
-
-	foreach ($input as $key => $value) {
-	    if(preg_match('#^xtrf_([0-9]+)_([a-z]+)_([a-z0-9_]+)$#', $key, $matches)) {
-	        $id = $matches[1];
-	        $type = $matches[2];
-	        $code = $matches[3];
-
-		// Checkbox values will be treated separately.
-		if ($type == 'checkbox') {
-		    if (!array_key_exists($id, $checkboxes)) {
-		        $checkboxes[$id] = [];
-		    }
-
-		    $checkboxes[$id][] = $value;
-
-		    continue;
-		}
-
-		$values[$id] = $value;
-
-	    }
-	}
-
-	if (!empty($checkboxes)) {
-	    foreach ($checkboxes as $key => $array) {
-	        $values[$key] = implode(',', $array);
-	    }
-	}
-    }
-
     public function beforeCreate()
     {
 	if(empty($this->slug)) {
@@ -284,6 +228,7 @@ class Article extends Model
     {
         $this->setOrderings();
 	$this->reorderByCategory();
+	$this->setFields();
     }
 
     public function afterDelete()
@@ -343,6 +288,80 @@ class Article extends Model
 
 		$order++;
 	    }
+	}
+    }
+
+    public static function getFields($groupId, $id)
+    {
+        // Gets the fields linked to the group.
+        $fields = Group::find($groupId)->fields;
+	$data = [];
+
+	foreach ($fields as $key => $field) {
+	  $value = $field->values()->where('article_id', $id)->pluck('value')->first();
+	  $value = ($value === null) ? '' : $value;
+
+	  $data[] = ['id' => $field->id, 'name' => $field->name, 'code' => $field->code, 'type' => $field->type, 
+	             'required' => $field->required, 'default_value' => $field->default_value, 'value' => $value];
+
+	  if ($field->type == 'list' || $field->type == 'radio' || $field->type == 'checkbox') {
+	      $options = [];
+
+	      foreach ($field->options as $option) {
+		  $options[] = ['value' => $option->attributes['value'], 'text' => $option->attributes['text']];
+	      }
+
+	      $data[$key]['options'] = $options;
+	  }
+	}
+
+	return $data;
+    }
+
+    public function setFields()
+    {
+        $input = \Input::all();
+        $values = $checkboxes = [];
+	$groupId = $input['Article']['field_group'];
+
+	foreach ($input as $key => $value) {
+	    if(preg_match('#^xtrf_([0-9]+)_([a-z]+)_([a-z0-9_]+)$#', $key, $matches)) {
+	        $id = $matches[1];
+	        $type = $matches[2];
+	        $code = $matches[3];
+
+		// Checkbox values will be treated separately.
+		if ($type == 'checkbox') {
+		    if (!array_key_exists($id, $checkboxes)) {
+		        $checkboxes[$id] = [];
+		    }
+
+		    $checkboxes[$id][] = trim($value);
+
+		    continue;
+		}
+
+		$values[$id] = $value;
+
+	    }
+	}
+
+	if (!empty($checkboxes)) {
+	    foreach ($checkboxes as $key => $value) {
+	        $values[$key] = implode(',', $value);
+	    }
+	}
+
+        $fields = Group::find($groupId)->fields;
+
+	foreach ($fields as $key => $field) {
+	    $field->values()->where('article_id', $this->id)->delete();
+
+	    $value = new \Codalia\Journal\Models\FieldValue;
+	    $value->field_id = $field->id;
+	    $value->article_id = $this->id;
+	    $value->value = (empty($values[$field->id])) ? null : $values[$field->id];
+	    $value->save();
 	}
     }
 

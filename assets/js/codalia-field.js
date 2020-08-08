@@ -8,6 +8,7 @@ Codalia.Field = class {
     this.type = props.type;
     this.required = props.required;
     this.defaultValue = props.default_value;
+    this.value = props.value;
 
     if(this.type == 'list' || this.type == 'radio' || this.type == 'checkbox') {
       this.options = props.options;
@@ -33,7 +34,8 @@ Codalia.Field = class {
   }
 
   text = function() {
-    let attribs = {'type':'text', 'name':'xtrf_'+this.id+'_'+this.type+'_'+this.code, 'id':'xtrf-'+this.code, 'class':'form-control'};
+    let value = this.value == '' ? this.defaultValue : this.value;
+    let attribs = {'type':'text', 'name':'xtrf_'+this.id+'_'+this.type+'_'+this.code, 'id':'xtrf-'+this.code, 'class':'form-control', 'value':value};
     document.getElementById(this.parentDivId).appendChild(this.createElement('input', attribs)); 
   }
 
@@ -46,9 +48,15 @@ Codalia.Field = class {
     let attribs = {'name':'xtrf_'+this.id+'_'+this.type+'_'+this.code, 'id':'xtrf-'+this.code, 'class':'form-control custom-select'};
     let element = this.createElement('select', attribs);
     let options = '';
+    let value = this.value == '' ? this.defaultValue : this.value;
 
     for(let i = 0; i < this.options.length; i++) {
       let selected = '';
+
+      if(this.options[i].value == value) {
+	selected = 'selected="selected"';
+      }
+
       options += '<option value="'+this.options[i].value+'" '+selected+'>'+this.options[i].text+'</option>';
     }
 
@@ -71,7 +79,9 @@ Codalia.Field = class {
       let attribs = {'class':type, 'id':this.code+'-'+value};
       document.getElementById(this.parentDivId).appendChild(this.createElement('div', attribs)); 
 
-      attribs = {'type':type, 'name':'xtrf_'+this.id+'_'+this.type+'_'+this.code, 'id':'xtrf-'+this.code+'-'+value, 'value':value};
+      let extraId = type == 'checkbox' ? '_'+value : '';
+
+      attribs = {'type':type, 'name':'xtrf_'+this.id+'_'+this.type+'_'+this.code+extraId, 'id':'xtrf-'+this.code+'-'+value, 'value':value};
       document.getElementById(this.code+'-'+value).appendChild(this.createElement('input', attribs)); 
 
       attribs = {'for':this.code+'-'+value, 'id':'label-'+this.code+'-'+value};
