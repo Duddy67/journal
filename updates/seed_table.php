@@ -64,7 +64,8 @@ class SeedJournalTables extends Seeder
 		      ['name' => 'Version', 'code' => 'version', 'type' => 'radio'],
 		      ['name' => 'Translations', 'code' => 'translations', 'type' => 'checkbox'],
 		      ['name' => 'Release date', 'code' => 'release_date', 'type' => 'date'],
-		      ['name' => 'Meeting', 'code' => 'meeting', 'type' => 'datetime']
+		      ['name' => 'Meeting time', 'code' => 'meeting_time', 'type' => 'datetime'],
+		      ['name' => 'Information', 'code' => 'information', 'type' => 'textarea']
     ];
 
     public function run()

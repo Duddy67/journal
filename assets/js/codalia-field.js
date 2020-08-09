@@ -9,14 +9,16 @@ Codalia.Field = class {
     this.required = props.required;
     this.defaultValue = props.default_value;
     this.value = props.value;
+    this.value = this.value == '' ? this.defaultValue : this.value;
 
     if(this.type == 'list' || this.type == 'radio' || this.type == 'checkbox') {
       this.options = props.options;
     }
 
     this.parentDivId = 'Form-field-ExtraField-'+this.code+'-group';
+    let isRequired = (this.required) ? ' is-required': '';
 
-    let attribs = {'data-field-name':this.code, 'id':this.parentDivId, 'class':'form-group span-left'};
+    let attribs = {'data-field-name':this.code, 'id':this.parentDivId, 'class':'form-group span-left'+isRequired};
     document.getElementById('field').appendChild(this.createElement('div', attribs)); 
 
     attribs = {'for':this.parentDivId, 'id':'label-'+this.code};
@@ -24,36 +26,35 @@ Codalia.Field = class {
     document.getElementById('label-'+this.code).textContent = this.name;
 
     if(this.type == 'date' || this.type == 'datetime') {
-      attribs = {'id':'datetime-row-'+this.code, 'class':'row'};
+      attribs = {'class':'field-datepicker row', 'data-control':'datepicker', 'data-mode':'datetime', 'id':'datepicker-'+this.code};
       document.getElementById(this.parentDivId).appendChild(this.createElement('div', attribs)); 
       
-      this.parentDivId = 'datetime-row-'+this.code;
+      this.parentDivId = 'datepicker-'+this.code;
     }
 
     return this;
   }
 
   text = function() {
-    let value = this.value == '' ? this.defaultValue : this.value;
-    let attribs = {'type':'text', 'name':'xtrf_'+this.id+'_'+this.type+'_'+this.code, 'id':'xtrf-'+this.code, 'class':'form-control', 'value':value};
+    let attribs = {'type':'text', 'name':'xtrf_'+this.id+'_'+this.type+'_'+this.code, 'id':'xtrf-'+this.code, 'class':'form-control', 'value':this.value};
     document.getElementById(this.parentDivId).appendChild(this.createElement('input', attribs)); 
   }
 
   textarea = function() {
     let attribs = {'name':'xtrf_'+this.id+'_'+this.type+'_'+this.code, 'id':'xtrf-'+this.code, 'class':'form-control field-textarea'};
     document.getElementById(this.parentDivId).appendChild(this.createElement('textarea', attribs)); 
+    document.getElementById('xtrf-'+this.code).textContent = this.value;
   }
 
   list = function() {
     let attribs = {'name':'xtrf_'+this.id+'_'+this.type+'_'+this.code, 'id':'xtrf-'+this.code, 'class':'form-control custom-select'};
     let element = this.createElement('select', attribs);
     let options = '';
-    let value = this.value == '' ? this.defaultValue : this.value;
 
     for(let i = 0; i < this.options.length; i++) {
       let selected = '';
 
-      if(this.options[i].value == value) {
+      if(this.options[i].value == this.value) {
 	selected = 'selected="selected"';
       }
 
@@ -80,8 +81,13 @@ Codalia.Field = class {
       document.getElementById(this.parentDivId).appendChild(this.createElement('div', attribs)); 
 
       let extraId = type == 'checkbox' ? '_'+value : '';
-
       attribs = {'type':type, 'name':'xtrf_'+this.id+'_'+this.type+'_'+this.code+extraId, 'id':'xtrf-'+this.code+'-'+value, 'value':value};
+
+      let regex = new RegExp(value);
+      if(regex.test(this.value)) {
+	attribs.checked = 'checked';
+      }
+
       document.getElementById(this.code+'-'+value).appendChild(this.createElement('input', attribs)); 
 
       attribs = {'for':this.code+'-'+value, 'id':'label-'+this.code+'-'+value};
@@ -106,14 +112,11 @@ Codalia.Field = class {
    * @return  void
   */
   dateField = function(time) {
-    let attribs = {'class':'col-md-6', 'id':'date-wrapper-'+this.code};
+    let attribs = {'class':'col-md-6', 'id':'date-picker-'+this.code};
     document.getElementById(this.parentDivId).appendChild(this.createElement('div', attribs));
 
-    attribs = {'class':'field-datepicker', 'data-control':'datepicker', 'data-mode':'datetime', 'id':'datepicker-'+this.code};
-    document.getElementById('date-wrapper-'+this.code).appendChild(this.createElement('div', attribs));
-
     attribs = {'class':'input-with-icon right-align datetime-field', 'id':'div-date-'+this.code};
-    document.getElementById('datepicker-'+this.code).appendChild(this.createElement('div', attribs));
+    document.getElementById('date-picker-'+this.code).appendChild(this.createElement('div', attribs));
 
     attribs = {'class':'icon icon-calendar-o'};
     document.getElementById('div-date-'+this.code).appendChild(this.createElement('i', attribs));
@@ -122,21 +125,17 @@ Codalia.Field = class {
     document.getElementById('div-date-'+this.code).appendChild(this.createElement('input', attribs));
 
     if(time) {
-      attribs = {'class':'col-md-6', 'id':'datetime-wrapper-'+this.code};
+      attribs = {'class':'col-md-6', 'id':'time-picker-'+this.code};
       document.getElementById(this.parentDivId).appendChild(this.createElement('div', attribs));
 
       attribs = {'class':'input-with-icon right-align datetime-field', 'id':'div-time-'+this.code};
-      document.getElementById('datetime-wrapper-'+this.code).appendChild(this.createElement('div', attribs));
+      document.getElementById('time-picker-'+this.code).appendChild(this.createElement('div', attribs));
 
       attribs = {'class':'icon icon-clock-o'};
       document.getElementById('div-time-'+this.code).appendChild(this.createElement('i', attribs));
 
-      attribs = {'type':'text', 'id':'time-'+this.code, 'class':'form-control', 'autocomplete':'off', 'data-timepicker':''};
+      attribs = {'type':'text', 'id':'xtrf-time-'+this.code, 'class':'form-control', 'autocomplete':'off', 'data-timepicker':''};
       document.getElementById('div-time-'+this.code).appendChild(this.createElement('input', attribs));
-    }
-
-    if(this.value == null) {
-      this.value = '';
     }
 
     attribs = {'type':'hidden', 'name':'xtrf_'+this.id+'_'+this.type+'_'+this.code, 'id':'xtrf-'+this.code, 'value':this.value, 'data-datetime-value':''};
