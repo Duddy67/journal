@@ -29,7 +29,7 @@ class Field extends Model
     /**
      * @var array Validation rules for attributes
      */
-    public $rules = [];
+    public $rules = ['name' => 'required', 'code' => 'required'];
 
     /**
      * @var array Attributes to be cast to native types
@@ -102,6 +102,11 @@ class Field extends Model
     {
         $this->code = Str::slug($this->code);
 	$this->code = preg_replace('#\-#', '_', $this->code); 
+
+        $id = ($this->id) ? $this->id : 0;
+	if (Field::where('code', '=', $this->code)->where('id', '!=', $id)->count()) {
+	    throw new \ValidationException(['code' => 'Sorry that code is already taken!']);
+	} 
     }
 
     public function afterSave()
@@ -181,6 +186,9 @@ class Field extends Model
 	    //$fields->created_at->hidden = true;
 	    //$fields->updated_at->hidden = true;
 	    $fields->id->hidden = true;
+	}
+	elseif ($context == 'edit' || $context == 'update') {
+	    $fields->type->disabled = true;
 	}
     }
 }

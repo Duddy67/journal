@@ -21,11 +21,6 @@ fields:
         span: left
         type: dropdown
 
-    groups:
-        label: codalia.journal::lang.field.groups
-        span: left
-        type: relation 
-
     status:
         tab: codalia.journal::lang.attribute.tab_manage
         label: codalia.journal::lang.attribute.status
@@ -44,10 +39,15 @@ fields:
         span: right
         disabled: true
 
+    groups:
+        label: codalia.journal::lang.field.groups
+        span: left
+        type: relation 
+
     required:
         tab: codalia.journal::lang.attribute.tab_manage
         label: codalia.journal::lang.attribute.required
-        span: left
+        span: right
         type: switch
         on: codalia.journal::lang.attribute.yes
         off: codalia.journal::lang.attribute.no
