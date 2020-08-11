@@ -16,6 +16,7 @@
         <div class="form-buttons">
             <div class="loading-indicator-container">
                 <button
+		    id="on-save"
                     type="submit"
                     data-request="onSave"
                     data-request-data="redirect:1"
@@ -25,6 +26,7 @@
 		    <?= e(trans('codalia.journal::lang.action.save')) ?>
                 </button>
                 <button
+		    id="on-save-close"
                     type="button"
                     data-request="onSave"
                     data-request-data="close:1"

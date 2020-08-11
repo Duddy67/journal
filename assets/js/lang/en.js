@@ -10,6 +10,6 @@ var CodaliaLang = {
   "pagination" : { "beginning":"Beginning", "end":"End", "previous":"Previous", "next":"Next"
   },
   "option" : { "value_label":"Value", "value_desc":"Value",
-	       "text_label":"Text", "text_desc":"Text"
+	       "text_label":"Text", "text_desc":"Text", "select":"Select"
   }
 }

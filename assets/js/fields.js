@@ -1,5 +1,7 @@
 (function($) {
 
+  var required = [];
+
   // Run a function when the page is fully loaded including graphics.
   $(window).load(function() {
 
@@ -16,6 +18,11 @@
       return;
     }
 
+    required = [];
+
+    // Sets the validating function.
+    $('[id^="on-save"]').click( function(e) { validateFields(e); });
+
     // The input element containing the root location.
     let rootLocation = $('#root-location').val();
 
@@ -31,6 +38,13 @@
     ajax.process(getAjaxResult);
   }
 
+  validateFields = function(e) {
+    for(let i = 0; i < required.length; i++) {
+      Codalia.checkRequiredField(required[i]);
+      //alert(required[i].code);
+    }
+  }
+
   /** Callback functions **/
 
   getAjaxResult = function(result) {
@@ -38,6 +52,10 @@
       $.each(result.data, function(i, field) {
 	  elem = new Codalia.Field(field);
 	  elem[field.type]();
+
+	  if(field.required) {
+	    required.push(field);
+	  }
       });
     }
     else {

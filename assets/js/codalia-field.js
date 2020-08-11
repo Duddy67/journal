@@ -1,4 +1,22 @@
 
+Codalia.checkRequiredField = function(field) {
+  if(field.type == 'list') {
+    let elem = document.getElementById('xtrf-'+this.code);
+    let value = elem.options[e.selectedIndex].value;
+  }
+
+  if(field.type == 'text' || field.type == 'textarea') {
+    let value = document.getElementById('xtrf-'+this.code).value;
+    value = value.trim();
+
+    if(!value.length) {
+      return false;
+    }
+
+    return true;
+  }
+}
+
 Codalia.Field = class {
   constructor(props) {
     // Sets the field properties.
@@ -49,7 +67,7 @@ Codalia.Field = class {
   list = function() {
     let attribs = {'name':'xtrf_'+this.id+'_'+this.type+'_'+this.code, 'id':'xtrf-'+this.code, 'class':'form-control custom-select'};
     let element = this.createElement('select', attribs);
-    let options = '';
+    let options = '<option value=""> - '+CodaliaLang.option.select+' - </option>';
 
     for(let i = 0; i < this.options.length; i++) {
       let selected = '';
