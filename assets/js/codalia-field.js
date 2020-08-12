@@ -1,20 +1,42 @@
 
-Codalia.checkRequiredField = function(field) {
-  if(field.type == 'list') {
-    let elem = document.getElementById('xtrf-'+this.code);
-    let value = elem.options[e.selectedIndex].value;
-  }
+Codalia.checkRequiredFields = function(required) {
+  for(let i = 0; i < required.length; i++) {
+    let field = required[i];
+    let value = '';
 
-  if(field.type == 'text' || field.type == 'textarea') {
-    let value = document.getElementById('xtrf-'+this.code).value;
-    value = value.trim();
+    if(field.type == 'list') {
+      let elem = document.getElementById('xtrf-'+field.code);
+      value = elem.options[elem.selectedIndex].value;
+    }
+    else if(field.type == 'radio' || field.type == 'checkbox') {
+      let inputs = document.querySelectorAll('input[id^="xtrf-'+field.code+'-"]');
+      let isChecked = false;
 
-    if(!value.length) {
-      return false;
+      inputs.forEach(function(input) {
+	if(input.checked) {
+	  isChecked = true;
+	  value = input.value;
+	}
+      });
+
+      if(isChecked == false) {
+	alert(CodaliaLang.message.alert_mandatory_field+': '+field.name);
+	return false;
+      }
+    }
+    // text, textarea, date, datetime
+    else {
+      value = document.getElementById('xtrf-'+field.code).value;
+      value = value.trim();
     }
 
-    return true;
+    if(!value.length) {
+      alert(CodaliaLang.message.alert_mandatory_field+': '+field.name);
+      return false;
+    }
   }
+
+  return true;
 }
 
 Codalia.Field = class {

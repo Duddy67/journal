@@ -21,7 +21,7 @@
     required = [];
 
     // Sets the validating function.
-    $('[id^="on-save"]').click( function(e) { validateFields(e); });
+    $('[id^="on-save"]').click( function(e) { checkRequiredFields(e); });
 
     // The input element containing the root location.
     let rootLocation = $('#root-location').val();
@@ -38,10 +38,14 @@
     ajax.process(getAjaxResult);
   }
 
-  validateFields = function(e) {
-    for(let i = 0; i < required.length; i++) {
-      Codalia.checkRequiredField(required[i]);
-      //alert(required[i].code);
+  checkRequiredFields = function(e) {
+    if(!Codalia.checkRequiredFields(required)) {
+      // Shows the fields tab.
+      $('.nav-tabs a[href="#secondarytab-4"]').tab('show');
+
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
     }
   }
 
