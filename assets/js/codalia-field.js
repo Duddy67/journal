@@ -1,44 +1,4 @@
 
-Codalia.checkRequiredFields = function(required) {
-  for(let i = 0; i < required.length; i++) {
-    let field = required[i];
-    let value = '';
-
-    if(field.type == 'list') {
-      let elem = document.getElementById('xtrf-'+field.code);
-      value = elem.options[elem.selectedIndex].value;
-    }
-    else if(field.type == 'radio' || field.type == 'checkbox') {
-      let inputs = document.querySelectorAll('input[id^="xtrf-'+field.code+'-"]');
-      let isChecked = false;
-
-      inputs.forEach(function(input) {
-	if(input.checked) {
-	  isChecked = true;
-	  value = input.value;
-	}
-      });
-
-      if(isChecked == false) {
-	alert(CodaliaLang.message.alert_mandatory_field+': '+field.name);
-	return false;
-      }
-    }
-    // text, textarea, date, datetime
-    else {
-      value = document.getElementById('xtrf-'+field.code).value;
-      value = value.trim();
-    }
-
-    if(!value.length) {
-      alert(CodaliaLang.message.alert_mandatory_field+': '+field.name);
-      return false;
-    }
-  }
-
-  return true;
-}
-
 Codalia.Field = class {
   constructor(props) {
     // Sets the field properties.
@@ -207,3 +167,55 @@ Codalia.Field = class {
     return element;
   }
 }
+
+
+/**
+ * Checks for the required extra fields.
+ *
+ * @param   array  required	An array of field objects.
+ *
+ * @return  boolean  		True on success, false otherwise.
+*/
+Codalia.checkRequiredFields = function(required) {
+  // Loops through the required fields.
+  for(let i = 0; i < required.length; i++) {
+    let field = required[i];
+    let value = '';
+
+    if(field.type == 'list') {
+      let elem = document.getElementById('xtrf-'+field.code);
+      value = elem.options[elem.selectedIndex].value;
+    }
+    else if(field.type == 'radio' || field.type == 'checkbox') {
+      let inputs = document.querySelectorAll('input[id^="xtrf-'+field.code+'-"]');
+      let isChecked = false;
+
+      // Loops through the set of radio / checkbox elements.
+      inputs.forEach(function(input) {
+	if(input.checked) {
+	  isChecked = true;
+	  value = input.value;
+	}
+      });
+
+      if(isChecked == false) {
+	alert(CodaliaLang.message.alert_mandatory_field+': '+field.name);
+	return false;
+      }
+    }
+    // text, textarea, date, datetime
+    else {
+      value = document.getElementById('xtrf-'+field.code).value;
+      value = value.trim();
+    }
+
+    // Checks whether the field value is empty.
+    if(!value.length) {
+      alert(CodaliaLang.message.alert_mandatory_field+': '+field.name);
+      return false;
+    }
+  }
+
+  return true;
+}
+

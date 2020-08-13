@@ -17,6 +17,11 @@ columns:
         searchable: true
         sortable: true
 
+    _groups:
+        label: codalia.journal::lang.fields.groups
+        relation: groups
+        select: name
+
     status:
         label: codalia.journal::lang.attribute.status
         sortable: true

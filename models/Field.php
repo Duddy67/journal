@@ -191,4 +191,18 @@ class Field extends Model
 	    $fields->type->disabled = true;
 	}
     }
+
+    /**
+     * Allows filtering for specific groups.
+     * @param  Illuminate\Query\Builder  $query      QueryBuilder
+     * @param  array                     $groups     List of group ids
+     * @return Illuminate\Query\Builder              QueryBuilder
+     */
+    public function scopeFilterGroups($query, $groups)
+    {
+        return $query->whereHas('groups', function($q) use ($groups) {
+            $q->whereIn('id', $groups);
+        });
+    }
+
 }

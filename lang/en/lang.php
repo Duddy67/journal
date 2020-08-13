@@ -42,6 +42,11 @@ return [
       'name_placeholder' => 'New category name',
       'slug_placeholder' => 'new-category-slug'
     ],
+    'fields' => [
+      'filter_type' => 'Type',
+      'filter_group' => 'Group',
+      'groups' => 'Groups',
+    ],
     'field' => [
       'text' => 'Text',
       'textarea' => 'Text area',

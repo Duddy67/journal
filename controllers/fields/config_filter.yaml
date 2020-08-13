@@ -1,0 +1,29 @@
+# ===================================
+# Filter Scope Definitions
+# ===================================
+
+scopes:
+
+    category:
+        # Filter name
+        label: codalia.journal::lang.fields.filter_group
+        # Model Class name
+        modelClass: Codalia\Journal\Models\Group
+        # Model attribute to display for the name
+        nameFrom: name
+        # Apply query scope
+        scope: FilterGroups
+
+    type:
+        label: codalia.journal::lang.fields.filter_type
+        type: group
+        conditions: type in (:filtered)
+        options:
+            text: codalia.journal::lang.field.text
+            textarea: codalia.journal::lang.field.textarea
+            list: codalia.journal::lang.field.list
+            radio: codalia.journal::lang.field.radio
+            checkbox: codalia.journal::lang.field.checkbox
+            date: codalia.journal::lang.field.date
+            datetime: codalia.journal::lang.field.datetime
+
