@@ -116,8 +116,9 @@ class Field extends Model
 
     public function afterDelete()
     {
-        // Deletes relationship rows linked to the deleted book.
+        // Deletes relationship rows linked to the deleted item.
         $this->options()->where('field_id', $this->id)->delete();
+        $this->values()->where('field_id', $this->id)->delete();
     }
 
     /**

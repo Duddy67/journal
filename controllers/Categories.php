@@ -82,7 +82,7 @@ class Categories extends Controller
 	if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
 
             foreach ($checkedIds as $recordId) {
-	        // Checks that article does exist and the current user has the required access levels.
+	        // Checks that category does exist.
                 if ((!$category = Category::find($recordId))) {
                     continue;
                 }
@@ -168,6 +168,20 @@ class Categories extends Controller
 	}
 
 	return $this->listRefresh();
+    }
+
+    public function update_onDelete($recordId = null)
+    {
+	$category = Category::find($recordId); 
+
+	// Checks if the category is set as main category in a article.
+	if ($category->articles()->where('codalia_journal_articles.category_id', $recordId)->first()) {
+	    Flash::warning(Lang::get('codalia.journal::lang.action.used_as_main_category', ['name' => $category->name]));
+	    return;
+	}
+
+	// Calls the original update_onSave method
+	return $this->asExtension('FormController')->update_onDelete($recordId);
     }
 
     public function reorder()

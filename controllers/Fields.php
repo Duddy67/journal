@@ -73,7 +73,7 @@ class Fields extends Controller
 	if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
             $count = 0;
             foreach ($checkedIds as $recordId) {
-	        // Checks that extra field does exist.
+	        // Checks that field does exist.
                 if (!$field = Field::find($recordId)) {
                     continue;
                 }
