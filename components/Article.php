@@ -114,7 +114,7 @@ class Article extends ComponentBase
         $article->with(['categories' => function ($query) {
 	    // Gets only published categories.
 	    $query->where('status', 'published');
-        }]);
+        }, 'field_group']);
 
         try {
             $article = $article->firstOrFail();
@@ -143,6 +143,13 @@ class Article extends ComponentBase
 
 	if (Settings::get('show_breadcrumb')) {
 	    $article->breadcrumb = $this->getBreadcrumb($article);
+	}
+
+	foreach ($article->field_group->fields as $key => $field) {
+	  //echo $field->name.' : ';
+	  //echo $field->values->where('article_id', $article->id)->pluck('value')->first();
+	  //$article->field_group->fields[$key]->value = $field->values->where('article_id', $article->id)->pluck('value')->first();
+	  $field->value = $field->values->where('article_id', $article->id)->pluck('value')->first();
 	}
 
         return $article;

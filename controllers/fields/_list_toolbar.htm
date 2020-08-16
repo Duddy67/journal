@@ -36,7 +36,7 @@
         disabled="disabled"
         onclick="$(this).data('request-data', { checked: $('.control-list').listWidget('getChecked') })"
         data-request="onDelete"
-        data-request-confirm="Are you sure you want to delete the selected Fields?"
+	data-request-confirm="<?= e(trans('codalia.journal::lang.fields.deletion_confirmation')) ?>"
         data-trigger-action="enable"
         data-trigger=".control-list input[type=checkbox]"
         data-trigger-condition="checked"

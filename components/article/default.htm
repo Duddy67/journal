@@ -9,6 +9,10 @@
   {% partial "@breadcrumb" path = article.breadcrumb prefix = article.prefix %}
 {% endif %}
 
+{% for field in article.field_group.fields %}
+{{ field.value }}
+{% endfor %}
+
 <h3>{{ article.title }}</h3>
 <div class="content">{{ article.description|raw }}</div>
 	<?= e(trans('codalia.journal::lang.action.new')) ?>

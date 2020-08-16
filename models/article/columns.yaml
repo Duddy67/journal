@@ -15,6 +15,14 @@ columns:
         searchable: true
         sortable: false
 
+    _field_group:
+        label: codalia.journal::lang.attribute.field_group
+        relation: field_group
+        select: name
+        default: '-'
+        align: center
+        sortable: false
+
     status:
         label: codalia.journal::lang.attribute.status
         sortable: true

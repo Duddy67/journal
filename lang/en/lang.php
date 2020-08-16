@@ -46,6 +46,7 @@ return [
       'filter_type' => 'Type',
       'filter_group' => 'Group',
       'groups' => 'Groups',
+      'deletion_confirmation' => 'The selected fields are may be used in one or more articles.'.PHP_EOL.'All data linked to these fields will be lost.'.PHP_EOL.'Are you sure you want to delete them ?',
     ],
     'field' => [
       'text' => 'Text',
@@ -57,6 +58,7 @@ return [
       'datetime' => 'Datetime',
       'default_value' => 'Default value',
       'groups' => 'Groups',
+      'deletion_confirmation' => 'This field is may be used in one or more articles.'.PHP_EOL.'All data linked to this field will be lost.'.PHP_EOL.'Are you sure you want to delete it ?',
     ],
     // Boilerplate attributes.
     'attribute' => [
