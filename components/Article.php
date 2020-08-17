@@ -145,11 +145,32 @@ class Article extends ComponentBase
 	    $article->breadcrumb = $this->getBreadcrumb($article);
 	}
 
-	foreach ($article->field_group->fields as $key => $field) {
-	  //echo $field->name.' : ';
-	  //echo $field->values->where('article_id', $article->id)->pluck('value')->first();
-	  //$article->field_group->fields[$key]->value = $field->values->where('article_id', $article->id)->pluck('value')->first();
-	  $field->value = $field->values->where('article_id', $article->id)->pluck('value')->first();
+	if ($article->field_group) {
+	    // Loops through the extra fields.
+	    foreach ($article->field_group->fields as $key => $field) {
+	      $field->value = $field->values->where('article_id', $article->id)->pluck('value')->first();
+
+	      // Sets the value as the text value of the selected option(s).
+	      if ($field->type == 'radio' || $field->type == 'checkbox' || $field->type == 'list') {
+		  $values = '';
+
+		  foreach ($field->options as $option) {
+		      if ($field->type != 'checkbox' && $option->attributes['value'] == $field->value) {
+			  $field->value = $option->attributes['text'];
+		      }
+		      elseif ($field->type == 'checkbox' && preg_match('#'.$option->attributes['value'].'#', $field->value)) {
+			  // Concatenates the checkbox text values.
+			  $values .= $option->attributes['text'].', ';
+		      }
+		  }
+
+		  if($field->type == 'checkbox') {
+		      // Removes comma and space from the end of the string.
+		      $values = substr($values, 0, -2);
+		      $field->value = $values;
+		  }
+	      }
+	    }
 	}
 
         return $article;

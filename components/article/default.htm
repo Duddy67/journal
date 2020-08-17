@@ -9,10 +9,6 @@
   {% partial "@breadcrumb" path = article.breadcrumb prefix = article.prefix %}
 {% endif %}
 
-{% for field in article.field_group.fields %}
-{{ field.value }}
-{% endfor %}
-
 <h3>{{ article.title }}</h3>
 <div class="content">{{ article.description|raw }}</div>
 	<?= e(trans('codalia.journal::lang.action.new')) ?>
@@ -29,6 +25,10 @@
             </p>
         {% endfor %}
     </div>
+{% endif %}
+
+{% if article.field_group is not null %}
+  {% partial __SELF__ ~ "::fields" fields = article.field_group.fields %}
 {% endif %}
 
 <p class="info">
