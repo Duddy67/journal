@@ -23,7 +23,7 @@ create:
 # Update page
 update:
     title: Edit Field
-    redirect: codalia/journal/fields
+    redirect: codalia/journal/fields/update/:id
     redirectClose: codalia/journal/fields
 
 # Preview page

@@ -1,14 +1,16 @@
 
 <table class="table">
 {% for field in fields %}
-  <tr><td><strong>{{ field.name }}</strong></td>
+  {% if field.value is not empty %}
+    <tr><td><strong>{{ field.name }}</strong></td>
 
-  {% if field.type == 'date' %}
-    <td>{{ field.value|date('M d, Y') }}</td></tr>
-  {% elseif field.type == 'datetime' %}
-    <td>{{ field.value|date('M d, Y - H:i') }}</td></tr>
-  {% else %}
-    <td>{{ field.value }}</td></tr>
+    {% if field.type == 'date' %}
+      <td>{{ field.value|date('M d, Y') }}</td></tr>
+    {% elseif field.type == 'datetime' %}
+      <td>{{ field.value|date('M d, Y - H:i') }}</td></tr>
+    {% else %}
+      <td>{{ field.value }}</td></tr>
+    {% endif %}
   {% endif %}
 {% endfor %}
 </table>

@@ -323,6 +323,13 @@ class Article extends Model
         $input = \Input::all();
         $values = $checkboxes = [];
 	$groupId = $input['Article']['field_group'];
+        // First removes all the field values linked to this article.
+	Db::table('codalia_journal_field_values')->where('article_id', $this->id)->delete();
+
+	// No group selected.
+	if (!$groupId) {
+	    return;
+	}
 
 	foreach ($input as $key => $value) {
 	    if(preg_match('#^xtrf_([0-9]+)_([a-z]+)_([a-z0-9_]+)$#', $key, $matches)) {
@@ -355,8 +362,6 @@ class Article extends Model
         $fields = Group::find($groupId)->fields;
 
 	foreach ($fields as $key => $field) {
-	    $field->values()->where('article_id', $this->id)->delete();
-
 	    $value = new \Codalia\Journal\Models\FieldValue;
 	    $value->field_id = $field->id;
 	    $value->article_id = $this->id;

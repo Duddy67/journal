@@ -19,7 +19,7 @@
                     type="submit"
 		    id="on-save"
                     data-request="onSave"
-                    data-request-data="redirect:0"
+                    data-request-data="redirect:1"
                     data-hotkey="ctrl+s, cmd+s"
                     data-load-indicator="Saving Field..."
                     class="btn btn-primary">
@@ -48,6 +48,7 @@
             </div>
         </div>
 
+	<input type="hidden" id="initial-groups" name="initial_groups" value="" />
     <?= Form::close() ?>
 
 <?php else: ?>

@@ -10,6 +10,10 @@
 
     $('#Form-field-Field-type').change( function() { $.fn.setFieldType($('#Form-field-Field-type').val()); });
     $.fn.setFieldType($('#Form-field-Field-type').val());
+
+    if ($('#Form-field-Field-id').val() != undefined) {
+      $.fn.setInitialGroups();
+    }
   });
 
   $.fn.setFieldType = function(type) {
@@ -19,6 +23,19 @@
     else {
       $('#option').css({'visibility':'hidden','display':'none'});
     }
+  }
+
+  $.fn.setInitialGroups = function() {
+    var groups = [];
+    $('[id^="checkbox_Form-field-Field-groups_"]').each(function() {
+	//alert($(this).val());
+      if($(this).is(':checked')) {
+	//alert($(this).val());
+	groups.push($(this).val());
+      }
+    });
+
+    $('#initial-groups').val(JSON.stringify(groups));
   }
 
 })(jQuery);

@@ -173,6 +173,15 @@ class Field extends Model
 	}
     }
 
+    public function cleanValues()
+    {
+	$newGroupIds = post('Field')['groups'];
+	$oldGroupIds = json_decode(post('initial_groups'));
+	$diff = array_diff($oldGroupIds, $newGroupIds);
+
+	//file_put_contents('debog_file.txt', print_r($groupIds, true));
+    }
+
     /**
      * Switch visibility of some fields.
      *
