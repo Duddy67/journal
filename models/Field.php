@@ -3,6 +3,7 @@
 use Model;
 use October\Rain\Support\Str;
 use Lang;
+use Codalia\Journal\Models\Article;
 
 /**
  * Field Model
@@ -112,6 +113,7 @@ class Field extends Model
     public function afterSave()
     {
 	$this->setOptions();
+	$this->cleanValues();
     }
 
     public function afterDelete()
@@ -173,13 +175,24 @@ class Field extends Model
 	}
     }
 
+    /**
+     * Deletes the field values linked to the groups which have been unselected.
+     *
+     * @return void
+     */
     public function cleanValues()
     {
-	$newGroupIds = post('Field')['groups'];
-	$oldGroupIds = json_decode(post('initial_groups'));
-	$diff = array_diff($oldGroupIds, $newGroupIds);
-
-	//file_put_contents('debog_file.txt', print_r($groupIds, true));
+        // Collects the new and old group ids then figures out the old groups which have
+	// been unselected.
+	$news = post('Field')['groups'];
+	// Note: When no group is selected, zero is returned instead of an empty array.
+	$news = (is_array($news)) ? $news : [];
+	$olds = json_decode(post('initial_groups'));
+	$unselectedGroups = array_diff($olds, $news);
+	// Gets the id of articles using the unselected groups.
+	$articles = Article::where('field_group_id', implode(',', $unselectedGroups))->pluck('id')->toArray();
+        // Deletes the related field values.
+	$this->values()->where('article_id', implode(',', $articles))->delete();
     }
 
     /**

@@ -13,6 +13,7 @@
 
     if ($('#Form-field-Field-id').val() != undefined) {
       $.fn.setInitialGroups();
+      $('[id^="checkbox_Form-field-Field-groups_"]').click( function() { $.fn.checkUnselectedGroups(this); });
     }
   });
 
@@ -25,12 +26,12 @@
     }
   }
 
+  // Stores the initial group ids into a json array.
   $.fn.setInitialGroups = function() {
     var groups = [];
+
     $('[id^="checkbox_Form-field-Field-groups_"]').each(function() {
-	//alert($(this).val());
       if($(this).is(':checked')) {
-	//alert($(this).val());
 	groups.push($(this).val());
       }
     });
@@ -38,4 +39,12 @@
     $('#initial-groups').val(JSON.stringify(groups));
   }
 
+  $.fn.checkUnselectedGroups = function(checkbox) {
+    let groups = $('#initial-groups').val(); 
+    groups = JSON.parse(groups);
+
+    if(groups.indexOf(checkbox.value) != -1 && checkbox.checked == false) {
+      alert('check '+checkbox.checked);
+    }
+  }
 })(jQuery);

@@ -14,6 +14,8 @@ class FieldValue extends Model
      */
     public $table = 'codalia_journal_field_values';
 
+    public $primaryKey = 'field_id';
+
     public $incrementing = false;
 
     public $timestamps = false;
