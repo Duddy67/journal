@@ -31,7 +31,6 @@ class Fields extends Controller
 
     public function index()
     {
-	$this->vars['statusIcons'] = JournalHelper::instance()->getStatusIcons();
 	$this->addCss(url('plugins/codalia/journal/assets/css/extra.css'));
 	// Unlocks the checked out items of this user (if any).  
 	JournalHelper::instance()->checkIn((new Field)->getTable(), BackendAuth::getUser());
@@ -67,9 +66,6 @@ class Fields extends Controller
 
     public function index_onDelete()
     {
-	// Needed for the status column partial.
-	$this->vars['statusIcons'] = JournalHelper::instance()->getStatusIcons();
-
 	if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
             $count = 0;
             foreach ($checkedIds as $recordId) {
@@ -94,42 +90,8 @@ class Fields extends Controller
         return $this->listRefresh();
     }
 
-    public function index_onSetStatus()
-    {
-	// Needed for the status column partial.
-	$this->vars['statusIcons'] = JournalHelper::instance()->getStatusIcons();
-
-	// Ensures one or more items are selected.
-	if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
-	  $status = post('status');
-	  $count = 0;
-	  foreach ($checkedIds as $recordId) {
-	      $field = Field::find($recordId);
-
-	      if ($field->checked_out) {
-		  Flash::error(Lang::get('codalia.journal::lang.action.checked_out_item', ['name' => $field->name]));
-		  return $this->listRefresh();
-	      }
-
-	      $field->status = $status;
-	      // Important: Do not use the save() or update() methods here as the events (afterSave etc...) will be 
-	      //            triggered as well and may have unexpected behaviors.
-	      \Db::table('codalia_journal_fields')->where('id', $recordId)->update(['status' => $status]);
-
-	      $count++;
-	  }
-
-	  Flash::success(Lang::get('codalia.journal::lang.action.'.rtrim($status, 'ed').'_success', ['count' => $count]));
-	}
-
-	return $this->listRefresh();
-    }
-
     public function index_onCheckIn()
     {
-	// Needed for the status column partial.
-	$this->vars['statusIcons'] = JournalHelper::instance()->getStatusIcons();
-
 	// Ensures one or more items are selected.
 	if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
 	  $count = 0;

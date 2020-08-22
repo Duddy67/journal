@@ -14,7 +14,6 @@ class CreateFieldsTable extends Migration
 	    $table->string('name')->nullable();
             $table->string('code')->index();
             $table->char('type', 25)->index();
-            $table->char('status', 15)->default('unpublished');
 	    $table->boolean('required');
 	    $table->string('default_value')->nullable();
 	    $table->integer('checked_out')->unsigned()->nullable()->index();

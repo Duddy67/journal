@@ -21,28 +21,16 @@ fields:
         span: left
         type: dropdown
 
-    status:
-        tab: codalia.journal::lang.attribute.tab_manage
-        label: codalia.journal::lang.attribute.status
-        span: right
-        type: dropdown
-        permissions: codalia.journal.access_publish
-
-    default_value:
-        tab: codalia.journal::lang.attribute.tab_manage
-        label: codalia.journal::lang.field.default_value
-        span: left
-
     id:
         tab: codalia.journal::lang.attribute.tab_manage
         label: ID
         span: right
         disabled: true
 
-    groups:
-        label: codalia.journal::lang.field.groups
+    default_value:
+        tab: codalia.journal::lang.attribute.tab_manage
+        label: codalia.journal::lang.field.default_value
         span: left
-        type: relation 
 
     required:
         tab: codalia.journal::lang.attribute.tab_manage
@@ -51,6 +39,11 @@ fields:
         type: switch
         on: codalia.journal::lang.attribute.yes
         off: codalia.journal::lang.attribute.no
+
+    groups:
+        label: codalia.journal::lang.field.groups
+        span: left
+        type: relation 
 
     _options:
         label:

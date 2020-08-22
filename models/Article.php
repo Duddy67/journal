@@ -542,6 +542,11 @@ class Article extends Model
 		     });
     }
 
+    public function scopeFilterFieldGroups($query, $groups)
+    {
+        return $query->whereIn('field_group_id', $groups);
+    }
+
     /**
      * Apply a constraint to the query to find the nearest sibling
      *

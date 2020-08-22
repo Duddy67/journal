@@ -44,7 +44,10 @@
     groups = JSON.parse(groups);
 
     if(groups.indexOf(checkbox.value) != -1 && checkbox.checked == false) {
-      alert('check '+checkbox.checked);
+      if(confirm(CodaliaLang.message.warning_unselect_group) === false) {
+	checkbox.checked = true;
+	return;
+      }
     }
   }
 })(jQuery);

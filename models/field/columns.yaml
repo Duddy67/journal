@@ -22,12 +22,6 @@ columns:
         relation: groups
         select: name
 
-    status:
-        label: codalia.journal::lang.attribute.status
-        sortable: true
-        type: partial
-        path: ~/plugins/codalia/journal/models/article/_status_column.htm
-
     id:
         label: ID
         searchable: true

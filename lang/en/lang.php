@@ -22,6 +22,7 @@ return [
       'filter_category' => 'Category',
       'filter_date' => 'Date',
       'filter_status' => 'Status',
+      'filter_field_group' => 'Field group',
       'reorder' => 'Reorder Articles',
       'return_to_articles' => 'Return to the article list',
     ],
