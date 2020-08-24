@@ -148,17 +148,18 @@ class Article extends ComponentBase
 	if ($article->field_group) {
 	    // Loops through the extra fields.
 	    foreach ($article->field_group->fields as $key => $field) {
-	      $field->value = $field->values->where('article_id', $article->id)->pluck('value')->first();
+	      // N.B: Use '_value' instead of 'value' or a conflict with the Eloquent value() method will occur. 
+	      $field->_value = $field->values->where('article_id', $article->id)->pluck('value')->first();
 
 	      // Sets the value as the text value of the selected option(s).
 	      if ($field->type == 'radio' || $field->type == 'checkbox' || $field->type == 'list') {
 		  $values = '';
 
 		  foreach ($field->options as $option) {
-		      if ($field->type != 'checkbox' && $option->attributes['value'] == $field->value) {
-			  $field->value = $option->attributes['text'];
+		      if ($field->type != 'checkbox' && $option->attributes['value'] == $field->_value) {
+			  $field->_value = $option->attributes['text'];
 		      }
-		      elseif ($field->type == 'checkbox' && preg_match('#'.$option->attributes['value'].'#', $field->value)) {
+		      elseif ($field->type == 'checkbox' && preg_match('#'.$option->attributes['value'].'#', $field->_value)) {
 			  // Concatenates the checkbox text values.
 			  $values .= $option->attributes['text'].', ';
 		      }
@@ -167,7 +168,7 @@ class Article extends ComponentBase
 		  if($field->type == 'checkbox') {
 		      // Removes comma and space from the end of the string.
 		      $values = substr($values, 0, -2);
-		      $field->value = $values;
+		      $field->_value = $values;
 		  }
 	      }
 	    }
