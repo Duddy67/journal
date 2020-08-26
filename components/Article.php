@@ -34,6 +34,12 @@ class Article extends ComponentBase
                 'default'     => '{{ :slug }}',
                 'type'        => 'string',
             ],
+            'categoryPath' => [
+                'title'       => 'codalia.journal::lang.settings.category_path',
+                'description' => 'codalia.journal::lang.settings.category_path_description',
+                'default'     => '{{ :category-path }}',
+                'type'        => 'string',
+            ],
         ];
     }
 
@@ -83,15 +89,16 @@ class Article extends ComponentBase
     public function onRun()
     {
         $this->article = $this->page['article'] = $this->loadArticle();
-	$this->addCss(url('plugins/codalia/journal/assets/css/breadcrumb.css'));
+
+	if ($this->article === null || $this->article->category->status != 'published') {
+	    return \Redirect::to(404);
+	}
 
 	if (!$this->article->canView()) {
 	    return \Redirect::to(403);
 	}
 
-	if ($this->article->category->status != 'published') {
-	    return \Redirect::to(404);
-	}
+	$this->addCss(url('plugins/codalia/journal/assets/css/breadcrumb.css'));
     }
 
     public function onRender()
@@ -104,7 +111,6 @@ class Article extends ComponentBase
     protected function loadArticle()
     {
         $slug = $this->property('slug');
-
         $article = new ArticleItem;
 
         $article = $article->isClassExtendedWith('RainLab.Translate.Behaviors.TranslatableModel')
@@ -116,12 +122,9 @@ class Article extends ComponentBase
 	    $query->where('status', 'published');
         }, 'field_group']);
 
-        try {
-            $article = $article->firstOrFail();
-        } catch (ModelNotFoundException $ex) {
-            $this->setStatusCode(404);
-            return $this->controller->run('404');
-        }
+	if (($article = $article->first()) === null) {
+	    return null;
+	}
 
         // Add a "url" helper attribute for linking to the main category.
 	$article->category->setUrl($this->controller);

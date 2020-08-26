@@ -69,7 +69,7 @@ class Featured extends ComponentBase
                 'title'       => 'codalia.journal::lang.settings.articles_pagination',
                 'description' => 'codalia.journal::lang.settings.articles_pagination_description',
                 'type'        => 'string',
-                'default'     => '{{ :page? }}'
+                'default'     => '{{ :page }}'
             ],
             'categoryId' => [
                 'title'       => 'codalia.journal::lang.settings.featured_id',
