@@ -14,7 +14,7 @@ class CreateFieldsTable extends Migration
 	    $table->string('name')->nullable();
             $table->string('code')->index();
             $table->char('type', 25)->index();
-	    $table->boolean('required');
+	    $table->boolean('required')->nullable();
 	    $table->string('default_value')->nullable();
 	    $table->integer('checked_out')->unsigned()->nullable()->index();
 	    $table->timestamp('checked_out_time')->nullable();

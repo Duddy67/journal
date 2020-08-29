@@ -203,7 +203,8 @@ class Articles extends Controller
     public function loadScripts()
     {
 	$preferences = \Backend\Models\UserPreference::forUser()->get('backend::backend.preferences');
-	$this->addJs('/plugins/codalia/journal/assets/js/lang/'.$preferences['locale'].'.js');
+	$local = ($preferences === null) ? 'en' : $preferences['locale'];
+	$this->addJs('/plugins/codalia/journal/assets/js/lang/'.$local.'.js');
 	$this->addJs('/plugins/codalia/journal/assets/js/article.js');
 	$this->addJs('/plugins/codalia/journal/assets/js/codalia-ajax.js');
 	$this->addJs('/plugins/codalia/journal/assets/js/codalia-field.js');

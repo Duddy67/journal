@@ -94,7 +94,7 @@ class SeedJournalTables extends Seeder
       }
 
       foreach ($this->fields as $field) {
-	Field::create(['name' => $field['name'], 'code' => $field['code'], 'type' => $field['type'], 'status' => 'published']);
+	Field::create(['name' => $field['name'], 'code' => $field['code'], 'type' => $field['type']]);
       }
     }
 }

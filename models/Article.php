@@ -321,6 +321,11 @@ class Article extends Model
     public function setFields()
     {
         $input = \Input::all();
+
+	if (!isset($input['Article']['field_group'])) {
+	    return;
+	}
+
         $values = $checkboxes = [];
 	$groupId = $input['Article']['field_group'];
         // First removes all the field values linked to this article.

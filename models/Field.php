@@ -182,6 +182,10 @@ class Field extends Model
      */
     public function cleanValues()
     {
+        if (post('Field') === null) {
+	    return;
+	}
+
         // Collects the new and old group ids then figures out the old groups which have
 	// been unselected.
 	$news = post('Field')['groups'];
