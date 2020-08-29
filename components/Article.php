@@ -34,12 +34,6 @@ class Article extends ComponentBase
                 'default'     => '{{ :slug }}',
                 'type'        => 'string',
             ],
-            'categoryPath' => [
-                'title'       => 'codalia.journal::lang.settings.category_path',
-                'description' => 'codalia.journal::lang.settings.category_path_description',
-                'default'     => '{{ :category-path }}',
-                'type'        => 'string',
-            ],
         ];
     }
 
@@ -128,14 +122,33 @@ class Article extends ComponentBase
 
         // Add a "url" helper attribute for linking to the main category.
 	$article->category->setUrl($this->controller);
+	$urls = [];
 
         /*
          * Add a "url" helper attribute for linking to each extra category
          */
         if ($article && $article->categories->count()) {
-            $article->categories->each(function($category, $key) use($article) {
-		$category->setUrl($this->controller);
+            $article->categories->each(function($category, $key) use(&$urls) {
+		$url = $category->setUrl($this->controller);
+		$segments = explode('/', $url);
+                // Computes the index of the first category segment.
+                $index = count($segments) - ($category->nest_depth + 1);
+                $path = '';
+
+                // Builds the path for this category.
+                for ($i = $index; $i < count($segments); $i++) {
+                    $path .= $segments[$i].'/';
+                }
+
+                // Removes slash from the end of the string.
+                $path = substr($path, 0, -1);
+                $urls[] = $path;
             });
+	}
+	
+	// Checks the given category path.
+        if ($this->param('category-path') && !in_array($this->param('category-path'), $urls)) {
+            return null;
 	}
 
 	// Builds the canonical link to the article based on the main category of the article.
@@ -144,7 +157,8 @@ class Article extends ComponentBase
 	$params = ['id' => $article->id, 'slug' => $article->slug, 'category' => $path];
 	$article->canonical = $this->controller->pageUrl($articlePage, $params);
 
-	if (Settings::get('show_breadcrumb')) {
+	// Doesn't display the breadcrumb if the category path is not used.
+	if ($this->param('category-path') && Settings::get('show_breadcrumb')) {
 	    $article->breadcrumb = $this->getBreadcrumb($article);
 	}
 
