@@ -188,6 +188,8 @@ return [
       'featured_description' => 'Displays articles of a specific category in the home page.',
       'featured_id' => 'Category ID',
       'featured_id_description' => 'Enter the slug or the numeric id of a category to get the articles from. Add a "id:" prefix for numeric ids (eg: id:25).',
+      'contact_title' => 'Contact',
+      'contact_description' => 'A simple contact form.',
       'invalid_file_name' => 'Invalid file name. File name must start with: "category-level-" followed by a numeric value, (eg: category-level-1.htm). The numeric value refers to the depht of the category path.',
     ],
     'global_settings' => [

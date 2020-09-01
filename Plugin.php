@@ -89,6 +89,7 @@ class Plugin extends PluginBase
             'Codalia\Journal\Components\Articles' => 'articleList',
             'Codalia\Journal\Components\Categories' => 'articleCategories',
             'Codalia\Journal\Components\Featured' => 'featuredArticles',
+            'Codalia\Journal\Components\Contact' => 'contact',
         ];
     }
 
